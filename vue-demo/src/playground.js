@@ -1,19 +1,9 @@
-const developer = {
-  salary: 100000,
-  experience: 10,
-  techStack: ["Vue", "HTML", "CSS"],
-  lookingForWork: true,
+const numbers = [1, 2, 3, 4, 5];
 
-  doubleSalary(){
-    this.salary = this.salary * 2;
-    this.lookingForWork = false;
-  },
-};
+// Create an array of squares
 
-console.log(developer.salary);
-console.log(developer.lookingForWork);
+const squares = numbers.map((num) => {
+  return num * num;
+});
 
-developer.doubleSalary();
-
-console.log(developer.salary);
-console.log(developer.lookingForWork);
+console.log(squares);
