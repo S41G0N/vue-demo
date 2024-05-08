@@ -1,15 +1,16 @@
 <template>
   <MainNav />
+  <MainHero />
 </template>
 
 <script>
-import MainNav from '@/components/MainNav.vue'
+import MainNav from "@/components/MainNav.vue";
+import MainHero from "@/components/MainHero.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    // Could be simplified in a single line as MainNav,
-    // Could also be referenced to as main-nav in kebab-case (Vue does that automatically)
-    MainNav: MainNav
+    MainNav,
+    MainHero
   }
-}
+};
 </script>
