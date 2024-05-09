@@ -1,12 +1,18 @@
 # vue-demo
 
-In this project, I just wanted to learn vue.
+This is a personal project in which I'm trying to learn the basics of Vue and Tailwind
 
 ## Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
+
+```sh
+cd vue-demo
+```
+
+### Install vue and dependencies
 
 ```sh
 npm install
