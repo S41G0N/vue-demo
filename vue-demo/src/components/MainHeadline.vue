@@ -1,14 +1,17 @@
 <template>
   <section>
-    <h1>
+    <h1 class="mb-14 text-8xl font-bold tracking-tighter">
       <span :class="actionClasses">{{ keyword }} </span>
+      <br />
       your bricks
     </h1>
-    <h2>Everything you need for your brick passion</h2>
+    <h2 class="text-3xl font-light">Thousands of bricks. One marketplace.</h2>
   </section>
 </template>
 
 <script>
+import nextElementInList from "@/utils/nextElementInList.js";
+
 export default {
   name: "MainHero",
   data() {
@@ -20,10 +23,8 @@ export default {
   computed: {
     actionClasses() {
       return {
-        build: this.keyword === "Build",
-        find: this.keyword === "Find",
-        sell: this.keyword === "Sell",
-        buy: this.keyword === "Buy"
+        //Activate keyword class
+        [this.keyword.toLowerCase()]: true
       };
     }
   },
@@ -36,10 +37,7 @@ export default {
   methods: {
     changeHeroTitle() {
       this.interval = setInterval(() => {
-        const keywords = ["Build", "Find", "Sell", "Buy"];
-        const currentKeyword = keywords.indexOf(this.keyword);
-        const nextKeyword = (currentKeyword + 1) % 4;
-        this.keyword = keywords[nextKeyword];
+        this.keyword = nextElementInList(["Build", "Find", "Sell", "Buy"], this.keyword);
       }, 3000);
     }
   }
