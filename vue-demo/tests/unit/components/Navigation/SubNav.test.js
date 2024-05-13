@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/vue";
 
-import SubNav from "@/components/SubNav.vue";
+import SubNav from "@/components/Navigation/SubNav.vue";
 
 describe("SubNav test", () => {
   describe("When user on jobs page", () => {
