@@ -4,12 +4,7 @@
     <div class="flex flex-1 flex-nowrap h-full text-base font-light">
       <div class="flex h-full flex-1 relative items-center pr-3">
         <label class="absolute left-0 -top-10">What</label>
-        <input
-          v-model="searchTerm"
-          type="text"
-          placeholder="Medieval Blacksmith"
-          class="w-full text-lg font-normal focus:outline-none"
-        />
+        <text-input v-model="searchTerm" placeholder="Medieval Blacksmith" />
       </div>
       <span
         class="flex items-center h-full border-l border-r border-brand-gray-3 bg-brand-gray-2 px-3"
@@ -17,12 +12,7 @@
       >
       <div class="flex h-full flex-1 relative items-center pl-3">
         <label class="absolute left-0 -top-10">Where?</label>
-        <input
-          v-model="location"
-          type="text"
-          placeholder="Amsterdam"
-          class="w-full text-lg font-normal focus:outline-none"
-        />
+        <text-input v-model="location" placeholder="Amsterdam" />
       </div>
     </div>
 
@@ -32,16 +22,26 @@
 
 <script>
 import ActionButton from "@/components/Shared/ActionButton.vue";
+import TextInput from "@/components/Shared/TextInput.vue";
 export default {
   name: "ItemSearchForm",
   components: {
-    ActionButton
+    ActionButton,
+    TextInput
   },
   data() {
     return {
       searchTerm: "",
       location: ""
     };
+  },
+  methods: {
+    updateItem(payload) {
+      this.searchTerm = payload;
+    },
+    updateLocation(payload) {
+      this.location = payload;
+    }
   }
 };
 </script>
