@@ -26,14 +26,7 @@ describe("MainNav", () => {
     const navMenuItems = screen.getAllByRole("listitem");
     const navMenuText = navMenuItems.map((item) => item.textContent);
     console.log(navMenuText);
-    expect(navMenuText).toEqual([
-      "Teams",
-      "Locations",
-      "About us",
-      "How we hire",
-      "Students",
-      "Jobs"
-    ]);
+    expect(navMenuText).toEqual(["Sets", "Minifigures", "Deals", "News", "Inventory", "About Us"]);
   });
   describe("When user logs in", () => {
     it("displays user profile picture", async () => {

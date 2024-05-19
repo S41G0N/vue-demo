@@ -38,7 +38,7 @@ export default {
     return {
       company: "Brickie",
       url: "https://careers.google.com",
-      menuItems: ["Teams", "Locations", "About us", "How we hire", "Students", "Jobs"],
+      menuItems: ["Sets", "Minifigures", "Deals", "News", "Inventory", "About Us"],
       isLoggedIn: false
     };
   },
