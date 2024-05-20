@@ -6,13 +6,13 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: "HomeView"
+    component: HomeView
   },
 
   {
     path: "/sets/listings",
     name: "Listings",
-    component: "ListingsView"
+    component: ListingsView
   }
 ];
 

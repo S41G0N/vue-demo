@@ -1,16 +1,13 @@
 <template>
-  <MainNav />
-  <MainHero />
+  <div>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/sets/listings">Sets</router-link>
+  </div>
+  <router-view />
 </template>
 
 <script>
-import MainNav from "@/components/Navigation/MainNav.vue";
-import MainHero from "@/components/ItemSearch/MainHero.vue";
 export default {
-  name: "App",
-  components: {
-    MainNav,
-    MainHero
-  }
+  name: "App"
 };
 </script>
