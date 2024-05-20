@@ -2,13 +2,15 @@
   <header :class="['w-full', 'text-sm', headerHeightClass]">
     <div class="fixed top-0 left-0 w-full h-16 bg-white">
       <div class="flex flex-nowrap h-full border-b border-solid border-brand-gray-1 px-8">
-        <a :href="url" class="flex h-full items-center text-xl">
-          {{ company }}
-        </a>
+        <router-link :to="{ name: 'Home' }" class="flex h-full items-center text-xl">
+          Brickie
+        </router-link>
         <nav class="ml-12 h-full">
           <ul class="flex h-full list-none">
-            <li v-for="item in menuItems" :key="item" class="h-full ml-9 first:ml-0">
-              <a href="" class="flex h-full items-center py=2.5">{{ item }}</a>
+            <li v-for="item in menuItems" :key="item.text" class="h-full ml-9 first:ml-0">
+              <router-link :to="item.url" class="flex h-full items-center py=2.5">{{
+                item.text
+              }}</router-link>
             </li>
           </ul>
         </nav>
@@ -36,9 +38,14 @@ export default {
   },
   data() {
     return {
-      company: "Brickie",
-      url: "https://careers.google.com",
-      menuItems: ["Sets", "Minifigures", "Deals", "News", "Inventory", "About Us"],
+      menuItems: [
+        { text: "Sets", url: "/sets/listings" },
+        { text: "Minifigures", url: "/" },
+        { text: "Deals", url: "/" },
+        { text: "News", url: "/" },
+        { text: "Inventory", url: "/" },
+        { text: "About Us", url: "/" }
+      ],
       isLoggedIn: false
     };
   },
