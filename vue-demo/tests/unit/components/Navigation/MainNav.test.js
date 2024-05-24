@@ -6,8 +6,11 @@ import { RouterLinkStub } from "@vue/test-utils";
 
 describe("MainNav", () => {
   const renderMainNav = () => {
+    const $route = { name: "Home" };
     render(MainNav, {
       global: {
+        mocks: { $route: $route },
+
         stubs: {
           FontAwesomeIcon: true,
           RouterLink: RouterLinkStub

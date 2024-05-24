@@ -1,35 +1,29 @@
 import { render, screen } from "@testing-library/vue";
-
 import SubNav from "@/components/Navigation/SubNav.vue";
 
 describe("SubNav test", () => {
-  describe("When user on jobs page", () => {
-    it("displays jobs count", () => {
-      const $route = { name: "Listings" };
-      render(SubNav, {
-        global: {
-          mocks: { $route: $route },
-          stubs: {
-            FontAwesomeIcon: true
-          }
+  const renderSubnav = (routeName) => {
+    render(SubNav, {
+      global: {
+        mocks: { $route: { name: routeName } },
+        stubs: {
+          FontAwesomeIcon: true
         }
-      });
-      const jobsCount = screen.getByText("1653");
-      expect(jobsCount).toBeInTheDocument();
+      }
+    });
+  };
+  describe("When user on sets listings page", () => {
+    it("displays listings count", () => {
+      renderSubnav("Listings");
+      const listingsCount = screen.getByText("1653");
+      expect(listingsCount).toBeInTheDocument();
     });
   });
   describe("When user NOT on jobs page", () => {
     it(" does NOT display jobs count", () => {
-      const $route = { name: "Home" };
-      render(SubNav, {
-        global: {
-          mocks: {
-            $route: $route
-          }
-        }
-      });
-      const jobsCount = screen.queryByText("1653");
-      expect(jobsCount).not.toBeInTheDocument();
+      renderSubnav("Home");
+      const listingsCount = screen.queryByText("1653");
+      expect(listingsCount).not.toBeInTheDocument();
     });
   });
 });
