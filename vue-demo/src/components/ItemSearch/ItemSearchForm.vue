@@ -1,5 +1,8 @@
 <template>
-  <form class="flex h-12 w-full items-center rounded-3xl border border-solid border-brand-gray-3">
+  <form
+    class="flex h-12 w-full items-center rounded-3xl border border-solid border-brand-gray-3"
+    @submit.prevent="searchForItem"
+  >
     <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3" />
     <div class="flex flex-1 flex-nowrap h-full text-base font-light">
       <div class="flex h-full flex-1 relative items-center pr-3">
@@ -41,6 +44,15 @@ export default {
     },
     updateLocation(payload) {
       this.location = payload;
+    },
+    searchForItem() {
+      this.$router.push({
+        name: "Listings",
+        query: {
+          item: this.searchTerm,
+          location: this.location
+        }
+      });
     }
   }
 };
