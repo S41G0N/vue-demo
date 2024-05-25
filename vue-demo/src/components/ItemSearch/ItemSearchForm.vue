@@ -6,16 +6,16 @@
     <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3" />
     <div class="flex flex-1 flex-nowrap h-full text-base font-light">
       <div class="flex h-full flex-1 relative items-center pr-3">
-        <label class="absolute left-0 -top-10">What</label>
-        <text-input v-model="searchTerm" placeholder="Medieval Blacksmith" />
+        <label for="searchItem" class="absolute left-0 -top-10">What</label>
+        <text-input id="searchItem" v-model="searchTerm" placeholder="Medieval Blacksmith" />
       </div>
       <span
         class="flex items-center h-full border-l border-r border-brand-gray-3 bg-brand-gray-2 px-3"
         >in</span
       >
       <div class="flex h-full flex-1 relative items-center pl-3">
-        <label class="absolute left-0 -top-10">Where?</label>
-        <text-input v-model="location" placeholder="Amsterdam" />
+        <label for="location" class="absolute left-0 -top-10">Where?</label>
+        <text-input id="location" v-model="location" placeholder="Amsterdam" />
       </div>
     </div>
 
