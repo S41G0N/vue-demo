@@ -1,15 +1,18 @@
 <template>
   <div>
     <listings-filter-sidebar />
+    <item-listings />
   </div>
 </template>
 
 <script>
 import ListingsFilterSidebar from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebar.vue";
+import ItemListings from "@/components/ListingsResults/ListingsFilterSidebar/ItemListings.vue";
 export default {
   name: "ListingsView",
   components: {
-    ListingsFilterSidebar
+    ListingsFilterSidebar,
+    ItemListings
   },
   computed: {
     /* Exposure of $route object -> Contains properties of the router  object */

@@ -1,5 +1,5 @@
 <template>
-  <div>Hello World</div>
+  <div>Listigns Filter Sidebar Component</div>
 </template>
 
 <script>
