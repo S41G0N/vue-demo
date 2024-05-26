@@ -1,12 +1,16 @@
 <template>
-  <h1 class="text-6xl font-bold">Listings page</h1>
-  <h2>{{ routeInfo }}</h2>
-  <button @click="goToHome">Homepage</button>
+  <div>
+    <listings-filter-sidebar />
+  </div>
 </template>
 
 <script>
+import ListingsFilterSidebar from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebar.vue";
 export default {
   name: "ListingsView",
+  components: {
+    ListingsFilterSidebar
+  },
   computed: {
     /* Exposure of $route object -> Contains properties of the router  object */
     routeInfo() {
@@ -15,7 +19,7 @@ export default {
     },
     /* Exposure of $router object -> Contains functions to control routes */
     routerInfo() {
-      console.log(this.$route);
+      console.log(this.$router);
       return "Irrelevant";
     }
   },
