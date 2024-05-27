@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-row flex-nowrap w-full">
     <listings-filter-sidebar />
     <item-listings />
   </div>
@@ -7,7 +7,8 @@
 
 <script>
 import ListingsFilterSidebar from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebar.vue";
-import ItemListings from "@/components/ListingsResults/ListingsFilterSidebar/ItemListings.vue";
+import ItemListings from "@/components/ListingsResults/ItemListings.vue";
+
 export default {
   name: "ListingsView",
   components: {
