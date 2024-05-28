@@ -1,7 +1,11 @@
 <template>
   <main class="flex-auto bg-brand-gray-2 p-8">
     <ol>
-      <each-listing v-for="listing in displayedListings" :key="listing.id" :listing="listing" />
+      <each-listing
+        v-for="listing in displayedListings"
+        :key="listing.id"
+        :listing-object="listing"
+      />
     </ol>
   </main>
 </template>
