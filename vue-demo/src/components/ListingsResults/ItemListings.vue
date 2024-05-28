@@ -1,9 +1,7 @@
 <template>
   <main class="flex-auto bg-brand-gray-2 p-8">
     <ol>
-      <each-listing />
-      <each-listing />
-      <each-listing />
+      <each-listing v-for="listing in displayedListings" :key="listing.id" :listing="listing" />
     </ol>
   </main>
 </template>
@@ -17,6 +15,11 @@ export default {
   components: { EachListing },
   data() {
     return { sets: [] };
+  },
+  computed: {
+    displayedListings() {
+      return this.sets.slice(0, 10);
+    }
   },
   async mounted() {
     const response = await axios.get("http://localhost:3000/sets");
