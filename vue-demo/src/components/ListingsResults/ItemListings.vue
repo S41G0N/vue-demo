@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     displayedListings() {
-      return this.sets.slice(0, 10);
+      return this.sets.slice(0, 15);
     }
   },
   async mounted() {
