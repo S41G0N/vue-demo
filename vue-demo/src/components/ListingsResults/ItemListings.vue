@@ -7,6 +7,13 @@
         :listing-object="listing"
       />
     </ol>
+    <div class="mx-auto mt-8">
+      <div class="flex flex-row flex-nowrap">
+        <p class="flex-grow test-sm">
+          {{ currentPage }}
+        </p>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -21,9 +28,12 @@ export default {
     return { sets: [] };
   },
   computed: {
+    currentPage() {
+      return Number.parseInt(this.$route.query.page) || 1;
+    },
     displayedListings() {
       console.log(this.$route);
-      const pageNumber = Number.parseInt(this.$route.query.page) || 1;
+      const pageNumber = this.currentPage;
       const firstListingPos = (pageNumber - 1) * 10;
       const lastListingPos = pageNumber * 10;
       return this.sets.slice(firstListingPos, lastListingPos);
