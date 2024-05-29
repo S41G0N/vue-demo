@@ -25,10 +25,10 @@ describe("ItemListings", () => {
 
   /* Async to make sure this code runs after axios.get and DOM to get updated */
   it("create a listing for every set", async () => {
-    axios.get.mockResolvedValue({ data: Array(15).fill({ locations: ["Hello", "World"] }) });
+    axios.get.mockResolvedValue({ data: Array(10).fill({ locations: ["Hello", "World"] }) });
     renderWithPrompts();
 
     const totalListings = await screen.findAllByRole("listitem");
-    expect(totalListings).toHaveLength(15);
+    expect(totalListings).toHaveLength(10);
   });
 });

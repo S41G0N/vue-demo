@@ -22,7 +22,11 @@ export default {
   },
   computed: {
     displayedListings() {
-      return this.sets.slice(0, 15);
+      console.log(this.$route);
+      const pageNumber = Number.parseInt(this.$route.query.page) || 1;
+      const firstListingPos = (pageNumber - 1) * 10;
+      const lastListingPos = pageNumber * 10;
+      return this.sets.slice(firstListingPos, lastListingPos);
     }
   },
   async mounted() {
