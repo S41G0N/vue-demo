@@ -10,7 +10,7 @@
     <div class="mx-auto mt-8">
       <div class="flex flex-row flex-nowrap">
         <p class="flex-grow test-sm">
-          {{ currentPage }}
+          Previous Page {{ previousPage }} Page {{ currentPage }} Next Page {{ nextPage }}
         </p>
       </div>
     </div>
@@ -31,8 +31,26 @@ export default {
     currentPage() {
       return Number.parseInt(this.$route.query.page) || 1;
     },
+
+    nextPage() {
+      const listingsPerPage = 10;
+      const maxPage = Math.round(this.sets.length / listingsPerPage);
+      if (this.currentPage >= maxPage) {
+        return undefined;
+      } else {
+        return this.currentPage + 1;
+      }
+    },
+
+    previousPage() {
+      if (1 == this.currentPage) {
+        return undefined;
+      } else {
+        return this.currentPage - 1;
+      }
+    },
+
     displayedListings() {
-      console.log(this.$route);
       const pageNumber = this.currentPage;
       const firstListingPos = (pageNumber - 1) * 10;
       const lastListingPos = pageNumber * 10;
@@ -42,6 +60,7 @@ export default {
   async mounted() {
     const response = await axios.get("http://localhost:3000/sets");
     this.sets = response.data;
+    console.log(this.nextPage);
   }
 };
 </script>
