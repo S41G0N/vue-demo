@@ -9,9 +9,21 @@
     </ol>
     <div class="mx-auto mt-8">
       <div class="flex flex-row flex-nowrap">
-        <p class="flex-grow test-sm">
-          Previous Page {{ previousPage }} Page {{ currentPage }} Next Page {{ nextPage }}
-        </p>
+        <p class="flex-grow test-sm">Page {{ currentPage }}</p>
+        <div class="flex items-center justify-center">
+          <router-link
+            v-if="previousPage"
+            :to="{ name: 'Listings', query: { page: previousPage } }"
+            class="mx-3 text-sm font-semibold text-brand-blue-1"
+            >Previous</router-link
+          >
+          <router-link
+            v-if="nextPage"
+            :to="{ name: 'Listings', query: { page: nextPage } }"
+            class="mx-3 text-sm font-semibold text-brand-blue-1"
+            >Next</router-link
+          >
+        </div>
       </div>
     </div>
   </main>
@@ -35,19 +47,11 @@ export default {
     nextPage() {
       const listingsPerPage = 10;
       const maxPage = Math.round(this.sets.length / listingsPerPage);
-      if (this.currentPage >= maxPage) {
-        return undefined;
-      } else {
-        return this.currentPage + 1;
-      }
+      return maxPage > this.currentPage ? this.currentPage + 1 : undefined;
     },
 
     previousPage() {
-      if (1 == this.currentPage) {
-        return undefined;
-      } else {
-        return this.currentPage - 1;
-      }
+      return 1 < this.currentPage ? this.currentPage - 1 : undefined;
     },
 
     displayedListings() {
