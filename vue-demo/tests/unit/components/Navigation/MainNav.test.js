@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
-
 import MainNav from "@/components/Navigation/MainNav.vue";
 import { RouterLinkStub } from "@vue/test-utils";
+
+import { useUserStore } from "@/stores/user";
+import { createPinia, setActivePinia } from "pinia";
 
 describe("MainNav", () => {
   const renderMainNav = () => {

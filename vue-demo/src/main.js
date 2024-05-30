@@ -9,7 +9,6 @@ import "@/index.css";
 import router from "@/router";
 
 library.add(faSearch);
-
 const pinia = createPinia();
 
 createApp(App).use(pinia).use(router).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
