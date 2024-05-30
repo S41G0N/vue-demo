@@ -29,9 +29,10 @@ describe("ItemListings", () => {
   };
 
   it("fetches listings", () => {
+    const baseURL = import.meta.env.VITE_APP_API_URL;
     axios.get.mockResolvedValue({ data: [] });
     renderWithPrompts(makeRoute());
-    expect(axios.get).toHaveBeenCalledWith("http://localhost:3000/sets");
+    expect(axios.get).toHaveBeenCalledWith(`${baseURL}/sets`);
   });
 
   /* Async to make sure this code runs after axios.get and DOM to get updated */
@@ -62,8 +63,8 @@ describe("ItemListings", () => {
   });
 
   describe("When user on page 1", () => {
-    it("Previous button should be invisible", async () => {
-      const listingsOnPage = 10;
+    it("Previous button should be invisible, next button should be visible", async () => {
+      const listingsOnPage = 20;
       axios.get.mockResolvedValue({
         data: Array(listingsOnPage).fill({ locations: ["Hello", "World"] })
       });
@@ -71,18 +72,21 @@ describe("ItemListings", () => {
       await screen.findAllByRole("listitem");
 
       expect(screen.queryByRole("link", { name: /previous/i })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /next/i })).toBeInTheDocument();
     });
+  });
 
-    it("Next button should be visible", async () => {
-      const listingsOnPage = 20;
+  describe("When user on last page", () => {
+    it("Previous button should be visible, next button should be invisible", async () => {
+      const listingsOnPage = 40;
       axios.get.mockResolvedValue({
         data: Array(listingsOnPage).fill({ locations: ["Hello", "World"] })
       });
-
-      renderWithPrompts(makeRoute({ page: "1" }));
+      renderWithPrompts(makeRoute({ page: "4" }));
       await screen.findAllByRole("listitem");
 
-      expect(screen.queryByRole("link", { name: /next/i })).toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /previous/i })).toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /next/i })).not.toBeInTheDocument();
     });
   });
 });

@@ -49,7 +49,6 @@ export default {
     nextPage() {
       const listingsPerPage = 10;
       const maxPage = Math.ceil(this.sets.length / listingsPerPage);
-      console.log("MAXPAGE = " + maxPage);
       return maxPage > this.currentPage ? this.currentPage + 1 : undefined;
     },
 
@@ -65,7 +64,8 @@ export default {
     }
   },
   async mounted() {
-    const response = await axios.get("http://localhost:3000/sets");
+    const baseURL = import.meta.env.VITE_APP_API_URL;
+    const response = await axios.get(`${baseURL}/sets`);
     this.sets = response.data;
   }
 };
