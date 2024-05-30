@@ -13,12 +13,14 @@
         <div class="flex items-center justify-center">
           <router-link
             v-if="previousPage"
+            role="link"
             :to="{ name: 'Listings', query: { page: previousPage } }"
             class="mx-3 text-sm font-semibold text-brand-blue-1"
             >Previous</router-link
           >
           <router-link
             v-if="nextPage"
+            role="link"
             :to="{ name: 'Listings', query: { page: nextPage } }"
             class="mx-3 text-sm font-semibold text-brand-blue-1"
             >Next</router-link
@@ -46,7 +48,8 @@ export default {
 
     nextPage() {
       const listingsPerPage = 10;
-      const maxPage = Math.round(this.sets.length / listingsPerPage);
+      const maxPage = Math.ceil(this.sets.length / listingsPerPage);
+      console.log("MAXPAGE = " + maxPage);
       return maxPage > this.currentPage ? this.currentPage + 1 : undefined;
     },
 
@@ -64,7 +67,6 @@ export default {
   async mounted() {
     const response = await axios.get("http://localhost:3000/sets");
     this.sets = response.data;
-    console.log(this.nextPage);
   }
 };
 </script>
