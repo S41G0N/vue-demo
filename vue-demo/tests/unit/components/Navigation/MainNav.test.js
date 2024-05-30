@@ -20,7 +20,6 @@ describe("MainNav", () => {
   };
   it("Displays company name", () => {
     renderMainNav();
-    screen.debug();
     const companyName = screen.getByText("Brickie");
     expect(companyName).toBeInTheDocument();
   });
