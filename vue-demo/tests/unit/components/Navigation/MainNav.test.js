@@ -5,14 +5,17 @@ import { RouterLinkStub } from "@vue/test-utils";
 
 import { useUserStore } from "@/stores/user";
 import { createPinia, setActivePinia } from "pinia";
+import { createTestingPinia } from "@pinia/testing";
 
 describe("MainNav", () => {
   const renderMainNav = () => {
+    //disable mock -> use real pinia
+    const pinia = createTestingPinia({ stubActions: false });
     const $route = { name: "Home" };
     render(MainNav, {
       global: {
         mocks: { $route: $route },
-
+        plugins: [pinia],
         stubs: {
           FontAwesomeIcon: true,
           RouterLink: RouterLinkStub
@@ -54,3 +57,4 @@ describe("MainNav", () => {
     });
   });
 });
+import { createTestingPinia } from "@pinia/testing";

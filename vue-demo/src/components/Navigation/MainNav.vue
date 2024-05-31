@@ -29,7 +29,7 @@ import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import SubNav from "@/components/Navigation/SubNav.vue";
 import { mapStores } from "pinia";
-import { useUserStore } from "@/stores/user"
+import { useUserStore } from "@/stores/user";
 
 export default {
   name: "MainNav",
@@ -47,7 +47,7 @@ export default {
         { text: "News", url: "/" },
         { text: "Inventory", url: "/" },
         { text: "About Us", url: "/" }
-      ],
+      ]
     };
   },
   computed: {
@@ -61,6 +61,6 @@ export default {
         "h-32": this.userStore.isLoggedIn
       };
     }
-  },
+  }
 };
 </script>
