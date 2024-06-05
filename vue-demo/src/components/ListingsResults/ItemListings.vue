@@ -32,41 +32,44 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions, mapState } from "pinia";
+
 import EachListing from "@/components/ListingsResults/EachListing.vue";
+import { useListingsStore, FETCH_LISTINGS } from "@/stores/listings.js";
 
 export default {
   name: "ItemListings",
   components: { EachListing },
-  data() {
-    return { sets: [] };
-  },
   computed: {
     currentPage() {
       return Number.parseInt(this.$route.query.page) || 1;
-    },
-
-    nextPage() {
-      const listingsPerPage = 10;
-      const maxPage = Math.ceil(this.sets.length / listingsPerPage);
-      return maxPage > this.currentPage ? this.currentPage + 1 : undefined;
     },
 
     previousPage() {
       return 1 < this.currentPage ? this.currentPage - 1 : undefined;
     },
 
-    displayedListings() {
-      const pageNumber = this.currentPage;
-      const firstListingPos = (pageNumber - 1) * 10;
-      const lastListingPos = pageNumber * 10;
-      return this.sets.slice(firstListingPos, lastListingPos);
-    }
+    ...mapState(useListingsStore, {
+      sets: "listings",
+      nextPage() {
+        const listingsPerPage = 10;
+        const maxPage = Math.ceil(this.sets.length / listingsPerPage);
+        return maxPage > this.currentPage ? this.currentPage + 1 : undefined;
+      },
+      displayedListings() {
+        const pageNumber = this.currentPage;
+        const firstListingPos = (pageNumber - 1) * 10;
+        const lastListingPos = pageNumber * 10;
+        return this.sets.slice(firstListingPos, lastListingPos);
+      }
+    })
   },
   async mounted() {
-    const baseURL = import.meta.env.VITE_APP_API_URL;
-    const response = await axios.get(`${baseURL}/sets`);
-    this.sets = response.data;
+    this.FETCH_LISTINGS();
+  },
+
+  methods: {
+    ...mapActions(useListingsStore, [FETCH_LISTINGS])
   }
 };
 </script>
