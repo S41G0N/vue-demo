@@ -1,9 +1,8 @@
 import axios from "axios";
-
-vi.mock("axios");
-
 import fetchListings from "@/api/fetchListings";
 import { beforeEach } from "vitest";
+
+vi.mock("axios");
 
 describe("Fetch listings", () => {
   beforeEach(() => {
