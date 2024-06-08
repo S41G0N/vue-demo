@@ -1,7 +1,11 @@
 <template>
   <div class="border-b border-solid border-brand-gray-2">
-    <div class="flex cursor-pointer flex-wrap items-center justify-between" @click="open">
-      <h3 class="text-base font-semibold">Themes</h3>
+    <div
+      class="flex cursor-pointer flex-wrap items-center justify-between h-12"
+      role="button"
+      @click="open"
+    >
+      <h3 class="text-base font-semibold">{{ header }}</h3>
       <font-awesome-icon :icon="caretIcon" />
     </div>
     <div v-if="isOpen" class="mt-5 w-full">
@@ -12,7 +16,7 @@
 <script>
 export default {
   name: "CollapsibleAccordion",
-
+  props: { header: { type: String, required: true } },
   data() {
     return {
       isOpen: false
