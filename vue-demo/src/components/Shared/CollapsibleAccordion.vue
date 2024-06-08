@@ -4,7 +4,9 @@
       <h3 class="text-base font-semibold">Themes</h3>
       <font-awesome-icon :icon="caretIcon" />
     </div>
-    <div v-if="isOpen" class="mt-5 w-full">Child</div>
+    <div v-if="isOpen" class="mt-5 w-full">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script>

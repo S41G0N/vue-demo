@@ -7,7 +7,30 @@
           <action-button text="Clear filters" type="secondary" />
         </div>
       </div>
-      <collapsible-accordion />
+      <collapsible-accordion>
+        <div class="mt-5">
+          <fieldset>
+            <ul class="flex flex-row flex-wrap">
+              <li class="h-7 w-1/2">
+                <input id="Test" type="checkbox" class="mr-3" />
+                <label for="Test">Test</label>
+              </li>
+              <li class="h-7 w-1/2">
+                <input id="Test2" type="checkbox" class="mr-3" />
+                <label for="Test2">Test2</label>
+              </li>
+              <li class="h-7 w-1/2">
+                <input id="Test3" type="checkbox" class="mr-3" />
+                <label for="Test3">Test3</label>
+              </li>
+              <li class="h-7 w-1/2">
+                <input id="Test4" type="checkbox" class="mr-3" />
+                <label for="Test4">Test4</label>
+              </li>
+            </ul>
+          </fieldset>
+        </div>
+      </collapsible-accordion>
     </section>
   </div>
 </template>
