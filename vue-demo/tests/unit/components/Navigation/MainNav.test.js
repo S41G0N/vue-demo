@@ -57,4 +57,3 @@ describe("MainNav", () => {
     });
   });
 });
-import { createTestingPinia } from "@pinia/testing";

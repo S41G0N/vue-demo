@@ -44,7 +44,7 @@ export default {
         { text: "Sets", url: "/sets/listings" },
         { text: "Minifigures", url: "/" },
         { text: "Deals", url: "/" },
-        { text: "News", url: "/" },
+        { text: "News", url: "/articles" },
         { text: "Inventory", url: "/" },
         { text: "About Us", url: "/" }
       ]
