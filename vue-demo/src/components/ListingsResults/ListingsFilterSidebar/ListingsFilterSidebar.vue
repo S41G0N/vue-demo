@@ -55,6 +55,8 @@
           </fieldset>
         </div>
       </collapsible-accordion>
+
+      <collapsible-accordion header="Price"> </collapsible-accordion>
     </section>
   </div>
 </template>
