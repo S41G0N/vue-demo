@@ -2212,5 +2212,20 @@
             ],
             "dateAdded": "2021-02-21"
         }
-    ]
+    ],
+
+    "spotlights": [
+      {
+        "id": 1,
+        "img": "https://images.unsplash.com/photo-1472457897821-70d3819a0e24?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "title": "LEGO Star Wars",
+        "description": "New wave of LEGO Star Wars coming in June"
+      },
+      {
+        "id": 2,
+        "img": "https://images.unsplash.com/photo-1517242810446-cc8951b2be40?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "title": "LEGO Chicken",
+        "description": "LEGO Minifigures coming soon"
+      }
+    ],
 }
