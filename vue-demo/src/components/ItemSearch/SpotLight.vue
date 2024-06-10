@@ -8,6 +8,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   name: "SpotLight",
   data() {
@@ -20,6 +21,7 @@ export default {
     const apiUrl = `${baseUrl}/spotlights`;
     const response = await axios.get(apiUrl);
     this.spotlights = response.data;
+    console.log(this.spotlights);
   }
 };
 </script>
