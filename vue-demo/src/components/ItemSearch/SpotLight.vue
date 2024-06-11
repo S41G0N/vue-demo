@@ -1,7 +1,7 @@
 <template>
   <ul>
-    <li v-for="spotlight in spotlights" :key="spotlight.id">
-      <slot :spotlight="spotlight"></slot>
+    <li v-for="card in cards" :key="card.id">
+      <slot :title="card.title" :img="card.img" :description="card.description"></slot>
     </li>
   </ul>
 </template>
@@ -13,15 +13,15 @@ export default {
   name: "SpotLight",
   data() {
     return {
-      spotlights: []
+      cards: []
     };
   },
   async mounted() {
     const baseUrl = import.meta.env.VITE_APP_API_URL;
     const apiUrl = `${baseUrl}/spotlights`;
     const response = await axios.get(apiUrl);
-    this.spotlights = response.data;
-    console.log(this.spotlights);
+    this.cards = response.data;
+    console.log(this.cards);
   }
 };
 </script>

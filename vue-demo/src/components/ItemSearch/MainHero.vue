@@ -8,21 +8,21 @@
           <item-search-form />
         </div>
         <div class="col-start-7 col-span-5 self-center justify-self-center">
-          <img class="h-80 w-80 object-contain" src="@/img/bricks.webp" />
+          <img class="h-100 w-100 object-contain" src="@/img/bricks.webp" />
         </div>
         <div class="col-start-12 col-span-1"></div>
       </div>
     </section>
     <SpotLight class="flex flex-row justify-center pb-16">
-      <template #default="slotProps">
+      <template #default="cards">
         <RouterLink
           to="/sets/listings"
           class="mx-5 flex flex-col h-96 w-72 rounded-lg border bg-brand-gray-2"
         >
-          <img :src="slotProps.spotlight.img" class="object-contain" />
+          <img :src="cards.img" class="object-contain" />
           <div class="mt-3 h-48 px-6 py-4">
-            <h3 class="text-lg font-medium">{{ slotProps.spotlight.title }}</h3>
-            <p class="mt-3 text-sm">{{ slotProps.spotlight.description }}</p>
+            <h3 class="text-lg font-medium">{{ cards.title }}</h3>
+            <p class="mt-3 text-sm">{{ cards.description }}</p>
           </div>
           <RouterLink to="/sets/listings" class="px-6 pb-4 text-sm text-brand-blue-1"
             >See listings</RouterLink
