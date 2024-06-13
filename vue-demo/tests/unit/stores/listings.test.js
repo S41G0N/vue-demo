@@ -27,6 +27,21 @@ describe("actions", () => {
       expect(store.listings).toEqual(["Test Listing 1", "Test Listing 2"]);
     });
   });
+});
 
-  it("stores listings", () => {});
+describe("getters", () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
+  it("Checks if getters return the correct result", () => {
+    const store = useListingsStore();
+    store.listings = [
+      { minifigCount: 1 },
+      { minifigCount: 1 },
+      { minifigCount: 1 },
+      { minifigCount: 2 }
+    ];
+    const result = store.MINIFIG_COUNT;
+    expect(result).toEqual(new Set([1, 2]));
+  });
 });
