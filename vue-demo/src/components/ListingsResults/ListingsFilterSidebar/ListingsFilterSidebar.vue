@@ -7,31 +7,19 @@
           <action-button text="Clear filters" type="secondary" />
         </div>
       </div>
-      <collapsible-accordion header="Age">
+      <collapsible-accordion header="Minifigures">
         <div class="mt-5">
           <fieldset>
             <ul class="flex flex-row flex-wrap">
-              <li class="h-8 w-1/2">
-                <input id="Test" type="checkbox" class="mr-3" />
-                <label for="Test">Test</label>
-              </li>
-              <li class="h-8 w-1/2">
-                <input id="Test2" type="checkbox" class="mr-3" />
-                <label for="Test2">Test2</label>
-              </li>
-              <li class="h-8 w-1/2">
-                <input id="Test3" type="checkbox" class="mr-3" />
-                <label for="Test3">Test3</label>
-              </li>
-              <li class="h-8 w-1/2">
-                <input id="Test4" type="checkbox" class="mr-3" />
-                <label for="Test4">Test4</label>
+              <li v-for="filter in MINIFIG_COUNT" :key="filter" class="h-8 w-1/2">
+                <input :id="filter" type="checkbox" class="mr-3" />
+                <label :for="filter"> {{ filter }}</label>
               </li>
             </ul>
           </fieldset>
         </div>
       </collapsible-accordion>
-      <ListingsFilterSidebarThemes />
+      <ListingsFilterSidebarMinifigures />
 
       <collapsible-accordion header="Price"> </collapsible-accordion>
     </section>
@@ -41,10 +29,16 @@
 <script>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
-import ListingsFilterSidebarThemes from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebarThemes.vue";
+import ListingsFilterSidebarMinifigures from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebarMinifigures.vue";
+
+import { mapState } from "pinia";
+import { useListingsStore, MINIFIG_COUNT } from "@/stores/listings";
 
 export default {
   name: "ListingsFilterSidebar",
-  components: { ActionButton, CollapsibleAccordion, ListingsFilterSidebarThemes }
+  components: { ActionButton, CollapsibleAccordion, ListingsFilterSidebarMinifigures },
+  computed: {
+    ...mapState(useListingsStore, [MINIFIG_COUNT])
+  }
 };
 </script>

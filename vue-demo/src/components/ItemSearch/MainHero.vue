@@ -8,7 +8,7 @@
           <item-search-form />
         </div>
         <div class="col-start-7 col-span-5 self-center justify-self-center">
-          <img class="h-100 w-100 object-contain" src="@/img/bricks.webp" />
+          <img class="h-100 w-100 object-contain" src="@/img/white_background_image.png" />
         </div>
         <div class="col-start-12 col-span-1"></div>
       </div>

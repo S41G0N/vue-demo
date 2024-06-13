@@ -27,7 +27,7 @@
 <script>
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 export default {
-  name: "ListingsFilterSidebarThemes",
+  name: "ListingsFilterSidebarMinifigures",
   components: {
     CollapsibleAccordion
   },
