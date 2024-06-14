@@ -4,7 +4,14 @@
       <fieldset>
         <ul class="flex flex-row flex-wrap">
           <li v-for="filter in MINIFIG_COUNT" :key="filter" class="h-8 w-1/2">
-            <input :id="filter" type="checkbox" class="mr-3" />
+            <input
+              :id="filter"
+              v-model="selectedFilters"
+              :value="filter"
+              type="checkbox"
+              class="mr-3"
+              @change="selectFilter"
+            />
             <label :for="filter"> {{ filter }}</label>
           </li>
         </ul>
@@ -25,8 +32,16 @@ export default {
     CollapsibleAccordion
   },
   props: {},
+  data() {
+    return {
+      selectedFilters: []
+    };
+  },
   computed: {
     ...mapState(useListingsStore, [MINIFIG_COUNT])
+  },
+  methods: {
+    selectFilter() {}
   }
 };
 </script>
