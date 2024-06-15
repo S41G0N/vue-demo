@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
 import fetchListings from "@/api/fetchListings";
+import { useUserStore } from "@/stores/user";
 
 export const FETCH_LISTINGS = "FETCH_LISTINGS";
 export const MINIFIG_COUNT = "MINIFIG_COUNT";
+export const FILTERED_MINIFIGURES = "FILTERED_MINIFIGURES";
 
 export const useListingsStore = defineStore("listings", {
   state: () => ({
@@ -20,6 +22,12 @@ export const useListingsStore = defineStore("listings", {
       const minifigCount = new Set();
       state.listings.forEach((listing) => minifigCount.add(listing.minifigCount));
       return minifigCount;
+    },
+    [FILTERED_MINIFIGURES](state) {
+      const userStore = useUserStore();
+      return state.listings.filter((listing) =>
+        userStore.selectedFilter.includes(listing.minifigCount)
+      );
     }
   }
 });

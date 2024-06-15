@@ -1,6 +1,7 @@
 import { createPinia, setActivePinia } from "pinia";
 import { useListingsStore } from "@/stores/listings";
 import axios from "axios";
+import { useUserStore } from "@/stores/user";
 
 vi.mock("axios");
 
@@ -29,7 +30,7 @@ describe("actions", () => {
   });
 });
 
-describe("getters", () => {
+describe("MINIFIG_COUNT", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -43,5 +44,21 @@ describe("getters", () => {
     ];
     const result = store.MINIFIG_COUNT;
     expect(result).toEqual(new Set([1, 2]));
+
+    describe("FILTERED_MINIFIGURES", () => {
+      it("identifies listings based on minifigure filters", () => {
+        const listingsStore = useListingsStore();
+        listingsStore.listings = [
+          { minifigCount: 1 },
+          { minifigCount: 1 },
+          { minifigCount: 2 },
+          { minifigCount: 3 }
+        ];
+        const userStore = useUserStore();
+        userStore.selectedFilter = [{ minifigCount: 1 }, { minifigCount: 2 }];
+        const result = userStore.FILTERED_MINIFIGURES;
+        expect(result).toEqual([{ minifigCount: 1 }, { minifigCount: 2 }]);
+      });
+    });
   });
 });
