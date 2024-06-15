@@ -2,6 +2,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { useListingsStore } from "@/stores/listings";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
+import { describe } from "vitest";
 
 vi.mock("axios");
 
@@ -56,8 +57,29 @@ describe("MINIFIG_COUNT", () => {
         ];
         const userStore = useUserStore();
         userStore.selectedFilter = [{ minifigCount: 1 }, { minifigCount: 2 }];
-        const result = userStore.FILTERED_MINIFIGURES;
+        const result = listingsStore.FILTERED_MINIFIGURES;
         expect(result).toEqual([{ minifigCount: 1 }, { minifigCount: 2 }]);
+      });
+
+      describe("when no filter selected", () => {
+        it("fetches all listings", () => {
+          const listingsStore = useListingsStore();
+          listingsStore.listings = [
+            { minifigCount: 1 },
+            { minifigCount: 1 },
+            { minifigCount: 2 },
+            { minifigCount: 3 }
+          ];
+          const userStore = useUserStore();
+          userStore.selectedFilter = [];
+          const result = listingsStore.FILTERED_MINIFIGURES;
+          expect(result).toEqual([
+            { minifigCount: 1 },
+            { minifigCount: 1 },
+            { minifigCount: 2 },
+            { minifigCount: 3 }
+          ]);
+        });
       });
     });
   });

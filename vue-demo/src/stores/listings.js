@@ -23,8 +23,12 @@ export const useListingsStore = defineStore("listings", {
       state.listings.forEach((listing) => minifigCount.add(listing.minifigCount));
       return minifigCount;
     },
+
     [FILTERED_MINIFIGURES](state) {
       const userStore = useUserStore();
+      if (userStore.selectedFilter.length === 0) {
+        return state.listings;
+      }
       return state.listings.filter((listing) =>
         userStore.selectedFilter.includes(listing.minifigCount)
       );

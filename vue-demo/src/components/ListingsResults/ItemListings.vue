@@ -35,7 +35,7 @@
 import { mapActions, mapState } from "pinia";
 
 import EachListing from "@/components/ListingsResults/EachListing.vue";
-import { useListingsStore, FETCH_LISTINGS } from "@/stores/listings.js";
+import { useListingsStore, FETCH_LISTINGS, FILTERED_MINIFIGURES } from "@/stores/listings.js";
 
 export default {
   name: "ItemListings",
@@ -50,17 +50,17 @@ export default {
     },
 
     ...mapState(useListingsStore, {
-      sets: "listings",
+      FILTERED_MINIFIGURES,
       nextPage() {
         const listingsPerPage = 10;
-        const maxPage = Math.ceil(this.sets.length / listingsPerPage);
+        const maxPage = Math.ceil(this.FILTERED_MINIFIGURES.length / listingsPerPage);
         return maxPage > this.currentPage ? this.currentPage + 1 : undefined;
       },
       displayedListings() {
         const pageNumber = this.currentPage;
         const firstListingPos = (pageNumber - 1) * 10;
         const lastListingPos = pageNumber * 10;
-        return this.sets.slice(firstListingPos, lastListingPos);
+        return this.FILTERED_MINIFIGURES.slice(firstListingPos, lastListingPos);
       }
     })
   },
