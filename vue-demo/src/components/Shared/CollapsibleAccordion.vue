@@ -24,7 +24,6 @@ export default {
   },
   computed: {
     caretIcon() {
-      console.log(this.isOpen);
       return this.isOpen ? "magnifying-glass" : "angle-down";
     }
   },
