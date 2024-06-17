@@ -12,9 +12,14 @@ describe("Check default login status", () => {
     expect(store.isLoggedIn).toBe(false);
   });
 
-  it("stores user selected filters", () => {
+  it("stores user Minifigures selected filters", () => {
     const store = useUserStore();
-    expect(store.selectedFilter).toEqual([]);
+    expect(store.selectedMinifigureFilters).toEqual([]);
+  });
+
+  it("stores user Locations selected filters", () => {
+    const store = useUserStore();
+    expect(store.selectedLocationsFilters).toEqual([]);
   });
 });
 
@@ -32,7 +37,7 @@ describe("Login user", () => {
     it("updates current filters based on selected ones", () => {
       const store = useUserStore();
       store.ADD_SELECTED_FILTERS([1, 2]);
-      expect(store.selectedFilter).toEqual([1, 2]);
+      expect(store.selectedMinifigureFilters).toEqual([1, 2]);
     });
   });
 });

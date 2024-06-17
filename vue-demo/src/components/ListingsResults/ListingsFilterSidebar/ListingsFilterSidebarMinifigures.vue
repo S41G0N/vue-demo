@@ -6,7 +6,7 @@
           <li v-for="filter in MINIFIG_COUNT" :key="filter" class="h-8 w-1/2">
             <input
               :id="filter"
-              v-model="selectedFilters"
+              v-model="selectedMinifigureFilters"
               :value="filter"
               type="checkbox"
               class="mr-3"
@@ -35,7 +35,7 @@ export default {
   props: {},
   data() {
     return {
-      selectedFilters: []
+      selectedMinifigureFilters: []
     };
   },
   computed: {
@@ -44,7 +44,7 @@ export default {
   methods: {
     ...mapActions(useUserStore, [ADD_SELECTED_FILTERS]),
     selectFilter() {
-      this.ADD_SELECTED_FILTERS(this.selectedFilters);
+      this.ADD_SELECTED_FILTERS(this.selectedMinifigureFilters);
     }
   }
 };

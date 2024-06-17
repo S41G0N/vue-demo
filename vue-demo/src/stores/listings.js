@@ -26,11 +26,11 @@ export const useListingsStore = defineStore("listings", {
 
     [FILTERED_MINIFIGURES](state) {
       const userStore = useUserStore();
-      if (userStore.selectedFilter.length === 0) {
+      if (userStore.selectedMinifigureFilters.length === 0) {
         return state.listings;
       }
       return state.listings.filter((listing) =>
-        userStore.selectedFilter.includes(listing.minifigCount)
+        userStore.selectedMinifigureFilters.includes(listing.minifigCount)
       );
     }
   }

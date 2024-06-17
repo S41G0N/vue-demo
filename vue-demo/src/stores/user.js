@@ -5,14 +5,15 @@ export const ADD_SELECTED_FILTERS = "ADD_SELECTED_FILTERS";
 export const useUserStore = defineStore("user", {
   state: () => ({
     isLoggedIn: false,
-    selectedFilter: []
+    selectedMinifigureFilters: [],
+    selectedLocationsFilters: []
   }),
   actions: {
     loginUser() {
       this.isLoggedIn = true;
     },
-    async [ADD_SELECTED_FILTERS](selectedFilters) {
-      this.selectedFilter = selectedFilters;
+    async [ADD_SELECTED_FILTERS](selectedMinifigureFilters) {
+      this.selectedMinifigureFilters = selectedMinifigureFilters;
     }
   }
 });

@@ -56,7 +56,7 @@ describe("MINIFIG_COUNT", () => {
           { minifigCount: 3 }
         ];
         const userStore = useUserStore();
-        userStore.selectedFilter = [{ minifigCount: 1 }, { minifigCount: 2 }];
+        userStore.selectedMinifigureFilters = [{ minifigCount: 1 }, { minifigCount: 2 }];
         const result = listingsStore.FILTERED_MINIFIGURES;
         expect(result).toEqual([{ minifigCount: 1 }, { minifigCount: 2 }]);
       });
@@ -71,7 +71,7 @@ describe("MINIFIG_COUNT", () => {
             { minifigCount: 3 }
           ];
           const userStore = useUserStore();
-          userStore.selectedFilter = [];
+          userStore.selectedMinifigureFilters = [];
           const result = listingsStore.FILTERED_MINIFIGURES;
           expect(result).toEqual([
             { minifigCount: 1 },
