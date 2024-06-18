@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const ADD_SELECTED_FILTERS = "ADD_SELECTED_FILTERS";
+export const ADD_SELECTED_MINIFIGURES = "ADD_SELECTED_MINIFIGURES";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -12,8 +12,8 @@ export const useUserStore = defineStore("user", {
     loginUser() {
       this.isLoggedIn = true;
     },
-    async [ADD_SELECTED_FILTERS](selectedMinifigureFilters) {
-      this.selectedMinifigureFilters = selectedMinifigureFilters;
+    [ADD_SELECTED_MINIFIGURES](selectedFilters) {
+      this.selectedMinifigureFilters = selectedFilters;
     }
   }
 });

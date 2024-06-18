@@ -31,23 +31,48 @@ describe("actions", () => {
   });
 });
 
-describe("MINIFIG_COUNT", () => {
+describe("getters", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
-  it("Checks if getters return the correct result", () => {
-    const store = useListingsStore();
-    store.listings = [
-      { minifigCount: 1 },
-      { minifigCount: 1 },
-      { minifigCount: 1 },
-      { minifigCount: 2 }
-    ];
-    const result = store.MINIFIG_COUNT;
-    expect(result).toEqual(new Set([1, 2]));
 
-    describe("FILTERED_MINIFIGURES", () => {
-      it("identifies listings based on minifigure filters", () => {
+  describe("MINIFIG_COUNT", () => {
+    it("Checks if getters return the correct result", () => {
+      const store = useListingsStore();
+      store.listings = [
+        { minifigCount: 1 },
+        { minifigCount: 1 },
+        { minifigCount: 1 },
+        { minifigCount: 2 }
+      ];
+      const result = store.MINIFIG_COUNT;
+      expect(result).toEqual(new Set([1, 2]));
+    });
+  });
+
+  describe("FILTERED_MINIFIGURES", () => {
+    it("identifies listings based on minifigure filters", () => {
+      const listingsStore = useListingsStore();
+      listingsStore.listings = [
+        { minifigCount: 1 },
+        { minifigCount: 1 },
+        { minifigCount: 2 },
+        { minifigCount: 3 }
+      ];
+
+      const userStore = useUserStore();
+      userStore.ADD_SELECTED_MINIFIGURES([1, 2]);
+
+      console.log("selectedMinifigureFilters", userStore.selectedMinifigureFilters);
+      //userStore.selectedMinifigureFilters = [];
+
+      const result = listingsStore.FILTERED_MINIFIGURES;
+      console.log("Filtered Minifigures:", result);
+      expect(result).toEqual([{ minifigCount: 1 }, { minifigCount: 1 }, { minifigCount: 2 }]);
+    });
+
+    describe("when no filter selected", () => {
+      it("fetches all listings", () => {
         const listingsStore = useListingsStore();
         listingsStore.listings = [
           { minifigCount: 1 },
@@ -56,30 +81,14 @@ describe("MINIFIG_COUNT", () => {
           { minifigCount: 3 }
         ];
         const userStore = useUserStore();
-        userStore.selectedMinifigureFilters = [{ minifigCount: 1 }, { minifigCount: 2 }];
+        userStore.selectedMinifigureFilters = [];
         const result = listingsStore.FILTERED_MINIFIGURES;
-        expect(result).toEqual([{ minifigCount: 1 }, { minifigCount: 2 }]);
-      });
-
-      describe("when no filter selected", () => {
-        it("fetches all listings", () => {
-          const listingsStore = useListingsStore();
-          listingsStore.listings = [
-            { minifigCount: 1 },
-            { minifigCount: 1 },
-            { minifigCount: 2 },
-            { minifigCount: 3 }
-          ];
-          const userStore = useUserStore();
-          userStore.selectedMinifigureFilters = [];
-          const result = listingsStore.FILTERED_MINIFIGURES;
-          expect(result).toEqual([
-            { minifigCount: 1 },
-            { minifigCount: 1 },
-            { minifigCount: 2 },
-            { minifigCount: 3 }
-          ]);
-        });
+        expect(result).toEqual([
+          { minifigCount: 1 },
+          { minifigCount: 1 },
+          { minifigCount: 2 },
+          { minifigCount: 3 }
+        ]);
       });
     });
   });

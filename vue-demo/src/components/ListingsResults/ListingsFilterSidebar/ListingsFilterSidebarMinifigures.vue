@@ -25,7 +25,7 @@ import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 
 import { mapActions, mapState } from "pinia";
 import { useListingsStore, MINIFIG_COUNT } from "@/stores/listings";
-import { useUserStore, ADD_SELECTED_FILTERS } from "@/stores/user";
+import { useUserStore, ADD_SELECTED_MINIFIGURES } from "@/stores/user";
 
 export default {
   name: "ListingsFilterSidebarMinifigures",
@@ -42,9 +42,9 @@ export default {
     ...mapState(useListingsStore, [MINIFIG_COUNT])
   },
   methods: {
-    ...mapActions(useUserStore, [ADD_SELECTED_FILTERS]),
+    ...mapActions(useUserStore, [ADD_SELECTED_MINIFIGURES]),
     selectFilter() {
-      this.ADD_SELECTED_FILTERS(this.selectedMinifigureFilters);
+      this.ADD_SELECTED_MINIFIGURES(this.selectedMinifigureFilters);
     }
   }
 };

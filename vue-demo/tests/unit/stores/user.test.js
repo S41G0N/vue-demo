@@ -33,10 +33,10 @@ describe("Login user", () => {
     expect(store.isLoggedIn).toBe(true);
   });
 
-  describe("ADD_SELECTED_FILTERS", () => {
+  describe("ADD_SELECTED_MINIFIGURES", () => {
     it("updates current filters based on selected ones", () => {
       const store = useUserStore();
-      store.ADD_SELECTED_FILTERS([1, 2]);
+      store.ADD_SELECTED_MINIFIGURES([1, 2]);
       expect(store.selectedMinifigureFilters).toEqual([1, 2]);
     });
   });

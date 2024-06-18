@@ -44,6 +44,6 @@ describe("ListingsFilterSidebarMinifigures", () => {
     const oneMinifigureCheckbox = screen.getByRole("checkbox", { name: /1/i });
     await userEvent.click(oneMinifigureCheckbox);
 
-    expect(userStore.ADD_SELECTED_FILTERS).toHaveBeenCalledWith(["1"]);
+    expect(userStore.ADD_SELECTED_MINIFIGURES).toHaveBeenCalledWith(["1"]);
   });
 });
