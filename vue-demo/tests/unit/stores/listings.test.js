@@ -50,6 +50,59 @@ describe("getters", () => {
     });
   });
 
+  describe("UNIQUE_CONDITIONS", () => {
+    it("identifies listings based on conditions filters", () => {
+      const listingsStore = useListingsStore();
+      listingsStore.listings = [{ condition: "New" }, { condition: "MISB" }, { condition: "New" }];
+
+      const result = listingsStore.UNIQUE_CONDITION;
+
+      expect(result).toEqual(new Set(["New", "MISB"]));
+    });
+  });
+
+  describe("FILTERED_CONDITION", () => {
+    it("identifies listings based on condition filters", () => {
+      const listingsStore = useListingsStore();
+      listingsStore.listings = [
+        { condition: "New" },
+        { condition: "MISB" },
+        { condition: "New" },
+        { condition: "Old" }
+      ];
+
+      const userStore = useUserStore();
+      userStore.ADD_SELECTED_CONDITION(["MISB", "Old"]);
+
+      const result = listingsStore.FILTERED_CONDITION;
+      console.log("Filtered Minifigures:", result);
+      expect(result).toEqual([{ condition: "MISB" }, { condition: "Old" }]);
+
+      describe("when no filter selected", () => {
+        it("fetches all listings", () => {
+          const listingsStore = useListingsStore();
+
+          listingsStore.listings = [
+            { condition: "New" },
+            { condition: "MISB" },
+            { condition: "New" },
+            { condition: "Old" }
+          ];
+
+          const userStore = useUserStore();
+          userStore.selectedConditionFilters = [];
+          const result = listingsStore.FILTERED_CONDITION;
+          expect(result).toEqual([
+            { condition: "New" },
+            { condition: "MISB" },
+            { condition: "New" },
+            { condition: "Old" }
+          ]);
+        });
+      });
+    });
+  });
+
   describe("FILTERED_MINIFIGURES", () => {
     it("identifies listings based on minifigure filters", () => {
       const listingsStore = useListingsStore();

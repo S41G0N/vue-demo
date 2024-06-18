@@ -17,9 +17,9 @@ describe("Check default login status", () => {
     expect(store.selectedMinifigureFilters).toEqual([]);
   });
 
-  it("stores user Locations selected filters", () => {
+  it("stores user conditions selected filters", () => {
     const store = useUserStore();
-    expect(store.selectedLocationsFilters).toEqual([]);
+    expect(store.selectedConditionFilters).toEqual([]);
   });
 });
 
@@ -34,10 +34,21 @@ describe("Login user", () => {
   });
 
   describe("ADD_SELECTED_MINIFIGURES", () => {
-    it("updates current filters based on selected ones", () => {
+    it("updates current filters based on selected minifigures", () => {
       const store = useUserStore();
       store.ADD_SELECTED_MINIFIGURES([1, 2]);
       expect(store.selectedMinifigureFilters).toEqual([1, 2]);
+    });
+  });
+
+  describe("ADD_SELECTED_CONDITION", () => {
+    it("updates current filters based on selected condition", () => {
+      const store = useUserStore();
+
+      store.ADD_SELECTED_CONDITION(["New", "MISB"]);
+      console.log(store.selectedConditionFilters);
+
+      expect(store.selectedConditionFilters).toEqual(["New", "MISB"]);
     });
   });
 });
