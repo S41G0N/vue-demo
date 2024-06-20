@@ -8,6 +8,7 @@
         </div>
       </div>
       <ListingsFilterSidebarMinifigures />
+      <ListingsFilterSidebarConditions />
 
       <collapsible-accordion header="Themes">
         <div class="mt-5">
@@ -42,9 +43,15 @@
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 import ListingsFilterSidebarMinifigures from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebarMinifigures.vue";
+import ListingsFilterSidebarConditions from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebarConditions.vue";
 
 export default {
   name: "ListingsFilterSidebar",
-  components: { ActionButton, CollapsibleAccordion, ListingsFilterSidebarMinifigures }
+  components: {
+    ActionButton,
+    CollapsibleAccordion,
+    ListingsFilterSidebarMinifigures,
+    ListingsFilterSidebarConditions
+  }
 };
 </script>
