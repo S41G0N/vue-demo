@@ -21,19 +21,19 @@ npm install
 ### Compile and Hot-Reload for Development
 
 ```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
+npm run dev && npm run backend
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
 npm run test:unit
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
