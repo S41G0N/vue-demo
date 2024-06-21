@@ -12,14 +12,16 @@ describe("ListingsFilterSidebarMinifigures", () => {
     const pinia = createTestingPinia();
     const listingsStore = useListingsStore();
     const userStore = useUserStore();
+    const $router = { push: vi.fn() };
 
     render(ListingsFilterSidebarMinifigures, {
       global: {
+        mocks: { $router },
         plugins: [pinia],
         stubs: { FontAwesomeIcon: true }
       }
     });
-    return { listingsStore, userStore };
+    return { listingsStore, userStore, $router };
   };
 
   it("renders a unique list of minifigs in the filter", async () => {
@@ -45,5 +47,18 @@ describe("ListingsFilterSidebarMinifigures", () => {
     await userEvent.click(oneMinifigureCheckbox);
 
     expect(userStore.ADD_SELECTED_MINIFIGURES).toHaveBeenCalledWith(["1"]);
+  });
+
+  it("navigates to listings page after refreshing filters", async () => {
+    const { listingsStore, $router } = renderListingsFilterSidebarMinifigures();
+    listingsStore.MINIFIG_COUNT = new Set(["1", "2"]);
+
+    const button = screen.getByRole("button", { name: /minifigures/i });
+    await userEvent.click(button);
+
+    const oneMinifigureCheckbox = screen.getByRole("checkbox", { name: /1/i });
+    await userEvent.click(oneMinifigureCheckbox);
+
+    expect($router.push).toHaveBeenCalledWith({ name: "Listings" });
   });
 });

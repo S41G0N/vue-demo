@@ -45,6 +45,7 @@ export default {
     ...mapActions(useUserStore, [ADD_SELECTED_MINIFIGURES]),
     selectFilter() {
       this.ADD_SELECTED_MINIFIGURES(this.selectedMinifigureFilters);
+      this.$router.push({ name: "Listings" });
     }
   }
 };

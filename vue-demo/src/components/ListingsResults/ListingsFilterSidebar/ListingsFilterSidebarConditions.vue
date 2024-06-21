@@ -45,6 +45,7 @@ export default {
     ...mapActions(useUserStore, [ADD_SELECTED_CONDITION]),
     selectFilter() {
       this.ADD_SELECTED_CONDITION(this.selectedConditionFilters);
+      this.$router.push({ name: "Listings" });
     }
   }
 };
