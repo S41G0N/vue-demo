@@ -4,7 +4,7 @@
       <div v-if="onSetsListingsPage">
         <font-awesome-icon :icon="['fas', 'search']" class="mr-3" />
         <span>
-          <span class="text-brand-green-1"> {{ FILTERED_MINIFIGURES.length }} </span> jobs matched
+          <span class="text-brand-green-1"> {{ FILTERED_LISTINGS.length }} </span> jobs matched
         </span>
       </div>
     </div>
@@ -12,12 +12,12 @@
 </template>
 <script>
 import { mapState } from "pinia";
-import { useListingsStore, FILTERED_MINIFIGURES } from "@/stores/listings";
+import { useListingsStore, FILTERED_LISTINGS } from "@/stores/listings";
 
 export default {
   name: "SubNav",
   computed: {
-    ...mapState(useListingsStore, [FILTERED_MINIFIGURES]),
+    ...mapState(useListingsStore, [FILTERED_LISTINGS]),
     onSetsListingsPage() {
       return this.$route.name === "Listings";
     }

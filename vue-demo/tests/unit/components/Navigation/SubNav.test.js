@@ -25,7 +25,7 @@ describe("SubNav test", () => {
       const { listingsStore } = renderSubnav(testRoute);
 
       const numberOfListings = 16;
-      listingsStore.FILTERED_MINIFIGURES = Array(numberOfListings).fill({});
+      listingsStore.FILTERED_LISTINGS = Array(numberOfListings).fill({});
 
       const listingsCount = await screen.findByText(numberOfListings);
       expect(listingsCount).toBeInTheDocument();
@@ -39,7 +39,7 @@ describe("SubNav test", () => {
       const { listingsStore } = renderSubnav(testRoute);
       const numberOfListings = 16;
 
-      listingsStore.FILTERED_MINIFIGURES = Array(numberOfListings).fill({});
+      listingsStore.FILTERED_LISTINGS = Array(numberOfListings).fill({});
       const listingsCount = screen.queryByText(numberOfListings);
       expect(listingsCount).not.toBeInTheDocument();
     });
