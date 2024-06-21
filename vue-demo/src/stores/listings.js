@@ -9,6 +9,9 @@ export const FILTERED_MINIFIGURES = "FILTERED_MINIFIGURES";
 export const FILTERED_CONDITION = "FILTERED_CONDITION";
 export const FILTERED_LISTINGS = "FILTERED_LISTINGS";
 
+export const INCLUDE_LISTING_BY_CONDITION = "INCLUDE_LISTING_BY_CONDITION";
+export const INCLUDE_LISTING_BY_MINIFIGS = "INCLUDE_LISTING_BY_MINIFIGS";
+
 export const useListingsStore = defineStore("listings", {
   state: () => ({
     listings: []
@@ -27,10 +30,10 @@ export const useListingsStore = defineStore("listings", {
       return minifigCount;
     },
 
-    [UNIQUE_CONDITION](state) {
-      const conditions = new Set();
-      state.listings.forEach((listing) => conditions.add(listing.condition));
-      return conditions;
+    [INCLUDE_LISTING_BY_MINIFIGS]: () => (listing) => {
+      const userStore = useUserStore();
+      if (userStore.selectedMinifigureFilters.length === 0) return true;
+      return userStore.selectedMinifigureFilters.includes(listing.minifigCount);
     },
 
     [FILTERED_MINIFIGURES](state) {
@@ -44,6 +47,19 @@ export const useListingsStore = defineStore("listings", {
         userStore.selectedMinifigureFilters.includes(listing.minifigCount)
       );
     },
+
+    [UNIQUE_CONDITION](state) {
+      const conditions = new Set();
+      state.listings.forEach((listing) => conditions.add(listing.condition));
+      return conditions;
+    },
+
+    [INCLUDE_LISTING_BY_CONDITION]: () => (listing) => {
+      const userStore = useUserStore();
+      if (userStore.selectedConditionFilters.length === 0) return true;
+      return userStore.selectedConditionFilters.includes(listing.condition);
+    },
+
     [FILTERED_CONDITION](state) {
       const userStore = useUserStore();
 
@@ -57,30 +73,9 @@ export const useListingsStore = defineStore("listings", {
     },
 
     [FILTERED_LISTINGS](state) {
-      const userStore = useUserStore();
-
-      const noSelectedConditions = userStore.selectedConditionFilters.length === 0;
-      const noSelectedMinfigs = userStore.selectedMinifigureFilters.length === 0;
-
-      if (noSelectedMinfigs && noSelectedConditions) {
-        return state.listings;
-      }
-      const initialListings = state.listings;
-      const finalListings = initialListings
-        .filter((listing) => {
-          if (noSelectedMinfigs) {
-            return true;
-          }
-          return userStore.selectedMinifigureFilters.includes(listing.minifigCount);
-        })
-        .filter((listing) => {
-          if (noSelectedConditions) {
-            return true;
-          }
-          return userStore.selectedConditionFilters.includes(listing.condition);
-        });
-
-      return finalListings;
+      return state.listings
+        .filter((listing) => this.INCLUDE_LISTING_BY_MINFIGS(listing))
+        .filter((listing) => this.INCLUDE_LISTING_BY_CONDITION(listing));
     }
   }
 });
