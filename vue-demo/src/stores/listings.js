@@ -74,7 +74,7 @@ export const useListingsStore = defineStore("listings", {
 
     [FILTERED_LISTINGS](state) {
       return state.listings
-        .filter((listing) => this.INCLUDE_LISTING_BY_MINFIGS(listing))
+        .filter((listing) => this.INCLUDE_LISTING_BY_MINIFIGS(listing))
         .filter((listing) => this.INCLUDE_LISTING_BY_CONDITION(listing));
     }
   }
