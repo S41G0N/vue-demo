@@ -4,28 +4,28 @@
   </button>
 </template>
 
-<script>
-export default {
-  name: "ActionButton",
-  props: {
-    text: { type: String, required: true },
-    type: {
-      type: String,
-      required: true,
-      default: "primary",
-      validator(value) {
-        return ["primary", "secondary"].includes(value);
-      }
-    }
-  },
-  computed: {
-    buttonClass() {
-      return {
-        [this.type]: true
-      };
+<script setup>
+import { toRefs, computed } from "vue";
+
+const props = defineProps({
+  text: { type: String, required: true },
+  type: {
+    type: String,
+    required: true,
+    default: "primary",
+    validator(value) {
+      return ["primary", "secondary"].includes(value);
     }
   }
-};
+});
+
+const { type } = toRefs(props);
+
+const buttonClass = computed(() => {
+  return {
+    [type.value]: true
+  };
+});
 </script>
 
 <style scoped>
