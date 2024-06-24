@@ -4,24 +4,25 @@ import { createTestingPinia } from "@pinia/testing";
 import { describe, expect } from "vitest";
 import { useListingsStore } from "@/stores/listings";
 import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 
 import ListingsFilterSidebarConditions from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebarConditions.vue";
+
+vi.mock("vue-router");
 
 describe("ListingsFilterSidebarConditions", () => {
   const renderListingsFilterSidebarConditions = () => {
     const pinia = createTestingPinia();
     const listingsStore = useListingsStore();
     const userStore = useUserStore();
-    const $router = { push: vi.fn() };
 
     render(ListingsFilterSidebarConditions, {
       global: {
-        mocks: { $router },
         plugins: [pinia],
         stubs: { FontAwesomeIcon: true }
       }
     });
-    return { listingsStore, userStore, $router };
+    return { listingsStore, userStore };
   };
 
   it("renders a unique list of conditions in the filter", async () => {
@@ -37,6 +38,7 @@ describe("ListingsFilterSidebarConditions", () => {
   });
 
   it("tests checkboxes", async () => {
+    useRouter.mockReturnValue({ push: vi.fn() });
     const { listingsStore, userStore } = renderListingsFilterSidebarConditions();
     listingsStore.UNIQUE_CONDITION = new Set(["New", "MISB"]);
 
@@ -50,7 +52,9 @@ describe("ListingsFilterSidebarConditions", () => {
   });
 
   it("navigates to listings page after refreshing filters", async () => {
-    const { listingsStore, $router } = renderListingsFilterSidebarConditions();
+    const push = vi.fn();
+    useRouter.mockReturnValue({ push });
+    const { listingsStore } = renderListingsFilterSidebarConditions();
     listingsStore.UNIQUE_CONDITION = new Set(["MISB"]);
 
     const button = screen.getByRole("button", { name: /condition/i });
@@ -59,6 +63,6 @@ describe("ListingsFilterSidebarConditions", () => {
     const oneConditionCheckbox = screen.getByRole("checkbox", { name: /misb/i });
     await userEvent.click(oneConditionCheckbox);
 
-    expect($router.push).toHaveBeenCalledWith({ name: "Listings" });
+    expect(push).toHaveBeenCalledWith({ name: "Listings" });
   });
 });

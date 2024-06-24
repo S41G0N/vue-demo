@@ -20,33 +20,22 @@
   </collapsible-accordion>
 </template>
 
-<script>
+<script setup>
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 
-import { mapActions, mapState } from "pinia";
-import { useListingsStore, MINIFIG_COUNT } from "@/stores/listings";
-import { useUserStore, ADD_SELECTED_MINIFIGURES } from "@/stores/user";
+import { useListingsStore } from "@/stores/listings";
+import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
+import { ref, computed } from "vue";
 
-export default {
-  name: "ListingsFilterSidebarMinifigures",
-  components: {
-    CollapsibleAccordion
-  },
-  props: {},
-  data() {
-    return {
-      selectedMinifigureFilters: []
-    };
-  },
-  computed: {
-    ...mapState(useListingsStore, [MINIFIG_COUNT])
-  },
-  methods: {
-    ...mapActions(useUserStore, [ADD_SELECTED_MINIFIGURES]),
-    selectFilter() {
-      this.ADD_SELECTED_MINIFIGURES(this.selectedMinifigureFilters);
-      this.$router.push({ name: "Listings" });
-    }
-  }
+const selectedMinifigureFilters = ref([]);
+const listingsStore = useListingsStore();
+const userStore = useUserStore();
+const MINIFIG_COUNT = computed(() => listingsStore.MINIFIG_COUNT);
+const router = useRouter();
+
+const selectFilter = () => {
+  userStore.ADD_SELECTED_MINIFIGURES(selectedMinifigureFilters.value);
+  router.push({ name: "Listings" });
 };
 </script>

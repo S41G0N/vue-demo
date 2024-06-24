@@ -20,33 +20,23 @@
   </collapsible-accordion>
 </template>
 
-<script>
+<script setup>
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 
-import { mapActions, mapState } from "pinia";
-import { useListingsStore, UNIQUE_CONDITION } from "@/stores/listings";
-import { useUserStore, ADD_SELECTED_CONDITION } from "@/stores/user";
+import { useListingsStore } from "@/stores/listings";
+import { useUserStore } from "@/stores/user";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 
-export default {
-  name: "ListingsFilterSidebarConditions",
-  components: {
-    CollapsibleAccordion
-  },
-  props: {},
-  data() {
-    return {
-      selectedConditionFilters: []
-    };
-  },
-  computed: {
-    ...mapState(useListingsStore, [UNIQUE_CONDITION])
-  },
-  methods: {
-    ...mapActions(useUserStore, [ADD_SELECTED_CONDITION]),
-    selectFilter() {
-      this.ADD_SELECTED_CONDITION(this.selectedConditionFilters);
-      this.$router.push({ name: "Listings" });
-    }
-  }
+const selectedConditionFilters = ref([]);
+const listingsStore = useListingsStore();
+const userStore = useUserStore();
+
+const UNIQUE_CONDITION = computed(() => listingsStore.UNIQUE_CONDITION);
+const router = useRouter();
+
+const selectFilter = () => {
+  userStore.ADD_SELECTED_CONDITION(selectedConditionFilters.value);
+  router.push({ name: "Listings" });
 };
 </script>

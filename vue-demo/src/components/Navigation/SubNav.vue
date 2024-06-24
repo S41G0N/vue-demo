@@ -10,17 +10,17 @@
     </div>
   </div>
 </template>
-<script>
-import { mapState } from "pinia";
-import { useListingsStore, FILTERED_LISTINGS } from "@/stores/listings";
+<script setup>
+import { useListingsStore } from "@/stores/listings";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 
-export default {
-  name: "SubNav",
-  computed: {
-    ...mapState(useListingsStore, [FILTERED_LISTINGS]),
-    onSetsListingsPage() {
-      return this.$route.name === "Listings";
-    }
-  }
-};
+const route = useRoute();
+
+const onSetsListingsPage = computed(() => {
+  return route.name === "Listings";
+});
+
+const listingsStore = useListingsStore();
+const FILTERED_LISTINGS = computed(() => listingsStore.FILTERED_LISTINGS);
 </script>

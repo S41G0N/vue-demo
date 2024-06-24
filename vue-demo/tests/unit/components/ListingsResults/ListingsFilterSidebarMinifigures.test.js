@@ -4,24 +4,25 @@ import { createTestingPinia } from "@pinia/testing";
 import { describe } from "vitest";
 import { useListingsStore } from "@/stores/listings";
 import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 
 import ListingsFilterSidebarMinifigures from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebarMinifigures.vue";
+
+vi.mock("vue-router");
 
 describe("ListingsFilterSidebarMinifigures", () => {
   const renderListingsFilterSidebarMinifigures = () => {
     const pinia = createTestingPinia();
     const listingsStore = useListingsStore();
     const userStore = useUserStore();
-    const $router = { push: vi.fn() };
 
     render(ListingsFilterSidebarMinifigures, {
       global: {
-        mocks: { $router },
         plugins: [pinia],
         stubs: { FontAwesomeIcon: true }
       }
     });
-    return { listingsStore, userStore, $router };
+    return { listingsStore, userStore };
   };
 
   it("renders a unique list of minifigs in the filter", async () => {
@@ -37,6 +38,7 @@ describe("ListingsFilterSidebarMinifigures", () => {
   });
 
   it("tests checkboxes", async () => {
+    useRouter.mockReturnValue({ push: vi.fn() });
     const { listingsStore, userStore } = renderListingsFilterSidebarMinifigures();
     listingsStore.MINIFIG_COUNT = new Set(["1", "2"]);
 
@@ -50,7 +52,9 @@ describe("ListingsFilterSidebarMinifigures", () => {
   });
 
   it("navigates to listings page after refreshing filters", async () => {
-    const { listingsStore, $router } = renderListingsFilterSidebarMinifigures();
+    const push = vi.fn();
+    useRouter.mockReturnValue({ push });
+    const { listingsStore } = renderListingsFilterSidebarMinifigures();
     listingsStore.MINIFIG_COUNT = new Set(["1", "2"]);
 
     const button = screen.getByRole("button", { name: /minifigures/i });
@@ -59,6 +63,6 @@ describe("ListingsFilterSidebarMinifigures", () => {
     const oneMinifigureCheckbox = screen.getByRole("checkbox", { name: /1/i });
     await userEvent.click(oneMinifigureCheckbox);
 
-    expect($router.push).toHaveBeenCalledWith({ name: "Listings" });
+    expect(push).toHaveBeenCalledWith({ name: "Listings" });
   });
 });
