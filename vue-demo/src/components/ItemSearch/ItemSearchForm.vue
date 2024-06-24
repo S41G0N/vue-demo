@@ -23,37 +23,23 @@
   </form>
 </template>
 
-<script>
+<script setup>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import TextInput from "@/components/Shared/TextInput.vue";
-export default {
-  name: "ItemSearchForm",
-  components: {
-    ActionButton,
-    TextInput
-  },
-  data() {
-    return {
-      searchTerm: "",
-      location: ""
-    };
-  },
-  methods: {
-    updateItem(payload) {
-      this.searchTerm = payload;
-    },
-    updateLocation(payload) {
-      this.location = payload;
-    },
-    searchForItem() {
-      this.$router.push({
-        name: "Listings",
-        query: {
-          item: this.searchTerm,
-          location: this.location
-        }
-      });
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const searchTerm = ref("");
+const location = ref("");
+const router = useRouter();
+
+const searchForItem = () => {
+  router.push({
+    name: "Listings",
+    query: {
+      item: searchTerm.value,
+      location: location.value
     }
-  }
+  });
 };
 </script>

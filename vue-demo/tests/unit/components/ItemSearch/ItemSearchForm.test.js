@@ -1,22 +1,21 @@
 import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
-
 import ItemSearchForm from "@/components/ItemSearch/ItemSearchForm.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { useRouter } from "vue-router";
+
+vi.mock("vue-router");
 
 describe("ItemSearchForm", () => {
   describe("when user submits form", () => {
     it("directs user to listings page with query parameters", async () => {
       const push = vi.fn();
-      const $router = { push };
+      useRouter.mockReturnValue({ push });
 
       render(ItemSearchForm, {
         global: {
           stubs: {
             FontAwesomeIcon: true
-          },
-          mocks: {
-            $router: $router
           }
         }
       });
