@@ -31,45 +31,30 @@
   </main>
 </template>
 
-<script>
-import { mapActions, mapState } from "pinia";
-
+<script setup>
 import EachListing from "@/components/ListingsResults/EachListing.vue";
-import { useListingsStore, FETCH_LISTINGS, FILTERED_LISTINGS } from "@/stores/listings.js";
+import { useListingsStore } from "@/stores/listings.js";
+import { computed, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
-export default {
-  name: "ItemListings",
-  components: { EachListing },
-  computed: {
-    currentPage() {
-      return Number.parseInt(this.$route.query.page) || 1;
-    },
+const listingsStore = useListingsStore();
+onMounted(listingsStore.FETCH_LISTINGS);
+const route = useRoute();
 
-    previousPage() {
-      return 1 < this.currentPage ? this.currentPage - 1 : undefined;
-    },
+const currentPage = computed(() => Number.parseInt(route.query.page) || 1);
+const previousPage = computed(() => (1 < currentPage.value ? currentPage.value - 1 : undefined));
 
-    ...mapState(useListingsStore, {
-      FILTERED_LISTINGS,
-      nextPage() {
-        const listingsPerPage = 10;
-        const maxPage = Math.ceil(this.FILTERED_LISTINGS.length / listingsPerPage);
-        return maxPage > this.currentPage ? this.currentPage + 1 : undefined;
-      },
-      displayedListings() {
-        const pageNumber = this.currentPage;
-        const firstListingPos = (pageNumber - 1) * 10;
-        const lastListingPos = pageNumber * 10;
-        return this.FILTERED_LISTINGS.slice(firstListingPos, lastListingPos);
-      }
-    })
-  },
-  async mounted() {
-    this.FETCH_LISTINGS();
-  },
+const FILTERED_LISTINGS = computed(() => listingsStore.FILTERED_LISTINGS);
+const nextPage = computed(() => {
+  const listingsPerPage = 10;
+  const maxPage = Math.ceil(FILTERED_LISTINGS.value.length / listingsPerPage);
+  return maxPage > currentPage.value ? currentPage.value + 1 : undefined;
+});
 
-  methods: {
-    ...mapActions(useListingsStore, [FETCH_LISTINGS])
-  }
-};
+const displayedListings = computed(() => {
+  const pageNumber = currentPage.value;
+  const firstListingPos = (pageNumber - 1) * 10;
+  const lastListingPos = pageNumber * 10;
+  return FILTERED_LISTINGS.value.slice(firstListingPos, lastListingPos);
+});
 </script>
