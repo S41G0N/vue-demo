@@ -34,22 +34,21 @@
 <script setup>
 import EachListing from "@/components/ListingsResults/EachListing.vue";
 import { useListingsStore } from "@/stores/listings.js";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import getPreviousOrNextPage from "@/composables/getPreviousOrNextPage.js";
 
 const listingsStore = useListingsStore();
 onMounted(listingsStore.FETCH_LISTINGS);
+
 const route = useRoute();
 
-const currentPage = computed(() => Number.parseInt(route.query.page) || 1);
-const previousPage = computed(() => (1 < currentPage.value ? currentPage.value - 1 : undefined));
-
 const FILTERED_LISTINGS = computed(() => listingsStore.FILTERED_LISTINGS);
-const nextPage = computed(() => {
-  const listingsPerPage = 10;
-  const maxPage = Math.ceil(FILTERED_LISTINGS.value.length / listingsPerPage);
-  return maxPage > currentPage.value ? currentPage.value + 1 : undefined;
-});
+const listingsPerPage = 10;
+const currentPage = computed(() => Number.parseInt(route.query.page) || 1);
+const maxPage = computed(() => Math.ceil(FILTERED_LISTINGS.value.length / listingsPerPage));
+
+const { previousPage, nextPage } = getPreviousOrNextPage(currentPage, maxPage);
 
 const displayedListings = computed(() => {
   const pageNumber = currentPage.value;

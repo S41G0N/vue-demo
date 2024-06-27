@@ -36,22 +36,13 @@
   </li>
 </template>
 
-<script>
-export default {
-  name: "EachListing",
-  props: {
-    listingObject: { type: Object, required: true }
-  },
-  computed: {
-    listingPageLink() {
-      console.log(this.listingObject);
-      return "/sets/listings/" + this.listingObject.id;
-    }
-  },
-  methods: {
-    getDetails() {
-      return this.listingObject.description;
-    }
-  }
-};
+<script setup>
+import { computed } from "vue";
+
+const props = defineProps({
+  listingObject: { type: Object, required: true }
+});
+
+const listingPageLink = computed(() => "/sets/listings/" + props.listingObject.id);
+const getDetails = () => props.listingObject.description;
 </script>
