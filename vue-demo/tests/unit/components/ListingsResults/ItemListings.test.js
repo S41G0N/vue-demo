@@ -3,71 +3,66 @@ import ItemListings from "@/components/ListingsResults/ItemListings.vue";
 import { RouterLinkStub } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
 import { useListingsStore } from "@/stores/listings";
-
-/*Replaces real axios to simulate backend*/
+import { useRoute } from "vue-router";
+vi.mock("vue-router");
 
 describe("ItemListings", () => {
-  const makeRoute = (customParams = {}) => ({
-    query: {
-      page: "1",
-      ...customParams
-    }
-  });
+  const renderWithPrompts = () => {
+    const pinia = createTestingPinia();
+    const listingsStore = useListingsStore();
+    listingsStore.FILTERED_LISTINGS = Array(15).fill({ locations: ["Hello", "World"] });
 
-  const pinia = createTestingPinia();
-
-  const renderWithPrompts = (customRoute = {}) => {
     render(ItemListings, {
       global: {
         plugins: [pinia],
         stubs: {
           "router-link": RouterLinkStub
-        },
-        mocks: {
-          $route: customRoute
         }
       }
     });
+    return { listingsStore };
   };
 
   it("fetches listings", () => {
-    renderWithPrompts(makeRoute());
-    const listingsStore = useListingsStore();
+    useRoute.mockReturnValue({ query: {} });
+    const { listingsStore } = renderWithPrompts();
     expect(listingsStore.FETCH_LISTINGS).toHaveBeenCalledWith();
   });
 
-  /* Async to make sure this code runs after axios.get and DOM to get updated */
-  it("create a listing for every set", async () => {
-    const listingsOnPage = 10;
-    const listingsStore = useListingsStore();
-    listingsStore.listings = Array(listingsOnPage).fill({ locations: ["Hello", "World"] });
+  it("create only 10 listings on the first page", async () => {
+    const { listingsStore } = renderWithPrompts();
+    listingsStore.FILTERED_LISTINGS = Array(15).fill({ locations: ["Hello", "World"] });
 
-    renderWithPrompts(makeRoute({ page: "1" }));
+    useRoute.mockReturnValue({ query: { page: "1" } });
     const totalListings = await screen.findAllByRole("listitem");
-    expect(totalListings).toHaveLength(listingsOnPage);
+    expect(totalListings).toHaveLength(10);
   });
 
   describe("When 'page' NOT in query params", () => {
     it("displays page 1", () => {
-      renderWithPrompts(makeRoute({ page: undefined }));
+      useRoute.mockReturnValue({ query: {} });
+      renderWithPrompts();
       expect(screen.getByText("Page 1")).toBeInTheDocument();
     });
   });
 
   describe("When 'page' in query params", () => {
     it("displays current page number", () => {
-      renderWithPrompts(makeRoute({ page: "2" }));
+      useRoute.mockReturnValue({ query: { page: "2" } });
+      renderWithPrompts();
       expect(screen.getByText("Page 2")).toBeInTheDocument();
     });
   });
 
   describe("When user on page 1", () => {
     it("Previous button should be invisible, next button should be visible", async () => {
+      useRoute.mockReturnValue({ query: { page: "1" } });
       const listingsOnPage = 20;
-      const listingsStore = useListingsStore();
+      const { listingsStore } = renderWithPrompts();
 
-      listingsStore.listings = Array(listingsOnPage).fill({ locations: ["Hello", "World"] });
-      renderWithPrompts(makeRoute());
+      listingsStore.FILTERED_LISTINGS = Array(listingsOnPage).fill({
+        locations: ["Hello", "World"]
+      });
       await screen.findAllByRole("listitem");
 
       expect(screen.queryByRole("link", { name: /previous/i })).not.toBeInTheDocument();
@@ -77,10 +72,12 @@ describe("ItemListings", () => {
 
   describe("When user on last page", () => {
     it("Previous button should be visible, next button should be invisible", async () => {
+      useRoute.mockReturnValue({ query: { page: "4" } });
       const listingsOnPage = 40;
-      const listingsStore = useListingsStore();
-      listingsStore.listings = Array(listingsOnPage).fill({ locations: ["Hello", "World"] });
-      renderWithPrompts(makeRoute({ page: "4" }));
+      const { listingsStore } = renderWithPrompts();
+      listingsStore.FILTERED_LISTINGS = Array(listingsOnPage).fill({
+        locations: ["Hello", "World"]
+      });
       await screen.findAllByRole("listitem");
 
       expect(screen.queryByRole("link", { name: /previous/i })).toBeInTheDocument();
