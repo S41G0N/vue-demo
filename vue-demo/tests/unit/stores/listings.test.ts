@@ -36,6 +36,20 @@ describe("actions", () => {
 });
 
 describe("getters", () => {
+  const createMockListing = (listing: Partial<Listing> = {}): Listing => ({
+    id: 1,
+    title: "Test Title",
+    seller: "Test Seller",
+    condition: "Used",
+    minifigCount: "4",
+    locations: ["Location"],
+    minifiguresIncluded: ["Test Minifigure"],
+    randomText: ["Test Random Text"],
+    description: ["Test Description"],
+    dateAdded: "2020-03-20",
+    ...listing
+  });
+
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -44,11 +58,11 @@ describe("getters", () => {
     it("Checks if minifigure filter returns unique values only", () => {
       const store = useListingsStore();
       store.listings = [
-        { minifigCount: "1" },
-        { minifigCount: "1" },
-        { minifigCount: "1" },
-        { minifigCount: "2" }
-      ] as Listing[];
+        createMockListing({ minifigCount: "1" }),
+        createMockListing({ minifigCount: "1" }),
+        createMockListing({ minifigCount: "1" }),
+        createMockListing({ minifigCount: "2" })
+      ];
       const result = store.MINIFIG_COUNT;
       expect(result).toEqual(new Set(["1", "2"]));
     });
@@ -61,7 +75,7 @@ describe("getters", () => {
         userStore.selectedMinifigureFilters = [];
 
         const listingsStore = useListingsStore();
-        const mock_listing = { minifigCount: "1" } as Listing;
+        const mock_listing = createMockListing({ minifigCount: "1" });
         expect(listingsStore.INCLUDE_LISTING_BY_MINIFIGS(mock_listing)).toEqual(true);
       });
     });
@@ -71,7 +85,7 @@ describe("getters", () => {
         const userStore = useUserStore();
         userStore.selectedMinifigureFilters = ["1"];
         const listingsStore = useListingsStore();
-        const mock_listing = { minifigCount: "1" } as Listing;
+        const mock_listing = createMockListing({ minifigCount: "1" });
         expect(listingsStore.INCLUDE_LISTING_BY_MINIFIGS(mock_listing)).toEqual(true);
       });
     });
@@ -81,10 +95,10 @@ describe("getters", () => {
     it("identifies listings based on conditions filters", () => {
       const listingsStore = useListingsStore();
       listingsStore.listings = [
-        { condition: "New" },
-        { condition: "MISB" },
-        { condition: "New" }
-      ] as Listing[];
+        createMockListing({ condition: "New" }),
+        createMockListing({ condition: "MISB" }),
+        createMockListing({ condition: "New" })
+      ];
 
       const result = listingsStore.UNIQUE_CONDITION;
 
@@ -98,7 +112,7 @@ describe("getters", () => {
         const userStore = useUserStore();
         userStore.selectedConditionFilters = [];
         const listingsStore = useListingsStore();
-        const mock_listing = { condition: "MISB" } as Listing;
+        const mock_listing = createMockListing({ condition: "MISB" });
         expect(listingsStore.INCLUDE_LISTING_BY_CONDITION(mock_listing)).toEqual(true);
       });
     });
@@ -108,9 +122,9 @@ describe("getters", () => {
         const userStore = useUserStore();
         userStore.selectedConditionFilters = ["MISB", "New"];
         const listingsStore = useListingsStore();
-        let mock_listing = { condition: "MISB" } as Listing;
+        let mock_listing = createMockListing({ condition: "MISB" });
         expect(listingsStore.INCLUDE_LISTING_BY_CONDITION(mock_listing)).toEqual(true);
-        mock_listing = { condition: "Old" } as Listing;
+        mock_listing = createMockListing({ condition: "Old" });
         expect(listingsStore.INCLUDE_LISTING_BY_CONDITION(mock_listing)).toEqual(false);
       });
     });
@@ -120,11 +134,11 @@ describe("getters", () => {
     it("Checks if getters return the correct result", () => {
       const store = useListingsStore();
       store.listings = [
-        { minifigCount: "1" },
-        { minifigCount: "1" },
-        { minifigCount: "1" },
-        { minifigCount: "2" }
-      ] as Listing[];
+        createMockListing({ minifigCount: "1" }),
+        createMockListing({ minifigCount: "1" }),
+        createMockListing({ minifigCount: "1" }),
+        createMockListing({ minifigCount: "2" })
+      ];
       const result = store.MINIFIG_COUNT;
       expect(result).toEqual(new Set(["1", "2"]));
     });

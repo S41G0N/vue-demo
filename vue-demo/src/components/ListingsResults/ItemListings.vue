@@ -36,7 +36,7 @@ import EachListing from "@/components/ListingsResults/EachListing.vue";
 import { useListingsStore } from "@/stores/listings.ts";
 import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import getPreviousOrNextPage from "@/composables/getPreviousOrNextPage.js";
+import getPreviousOrNextPage from "@/composables/getPreviousOrNextPage.ts";
 
 const listingsStore = useListingsStore();
 onMounted(listingsStore.FETCH_LISTINGS);

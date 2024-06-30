@@ -8,5 +8,5 @@ export interface Listing {
   minifiguresIncluded: string[];
   randomText: string[];
   description: string[];
-  dateAdded: string[];
+  dateAdded: string;
 }
