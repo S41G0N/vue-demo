@@ -1,6 +1,8 @@
-import { defineStore } from "pinia";
 import fetchListings from "@/api/fetchListings";
+import { defineStore } from "pinia";
 import { useUserStore } from "@/stores/user";
+
+import type { Listing } from "@/api/types";
 
 export const FETCH_LISTINGS = "FETCH_LISTINGS";
 export const MINIFIG_COUNT = "MINIFIG_COUNT";
@@ -10,8 +12,12 @@ export const FILTERED_LISTINGS = "FILTERED_LISTINGS";
 export const INCLUDE_LISTING_BY_CONDITION = "INCLUDE_LISTING_BY_CONDITION";
 export const INCLUDE_LISTING_BY_MINIFIGS = "INCLUDE_LISTING_BY_MINIFIGS";
 
+export interface ListingState {
+  listings: Listing[];
+}
+
 export const useListingsStore = defineStore("listings", {
-  state: () => ({
+  state: (): ListingState => ({
     listings: []
   }),
   actions: {
@@ -23,30 +29,30 @@ export const useListingsStore = defineStore("listings", {
 
   getters: {
     [MINIFIG_COUNT](state) {
-      const minifigCount = new Set();
-      state.listings.forEach((listing) => minifigCount.add(listing.minifigCount));
+      const minifigCount = new Set<string>();
+      state.listings.forEach((listing: Listing) => minifigCount.add(listing.minifigCount));
       return minifigCount;
     },
 
-    [INCLUDE_LISTING_BY_MINIFIGS]: () => (listing) => {
+    [INCLUDE_LISTING_BY_MINIFIGS]: () => (listing: Listing) => {
       const userStore = useUserStore();
       if (userStore.selectedMinifigureFilters.length === 0) return true;
       return userStore.selectedMinifigureFilters.includes(listing.minifigCount);
     },
 
     [UNIQUE_CONDITION](state) {
-      const conditions = new Set();
-      state.listings.forEach((listing) => conditions.add(listing.condition));
+      const conditions = new Set<string>();
+      state.listings.forEach((listing: Listing) => conditions.add(listing.condition));
       return conditions;
     },
 
-    [INCLUDE_LISTING_BY_CONDITION]: () => (listing) => {
+    [INCLUDE_LISTING_BY_CONDITION]: () => (listing: Listing) => {
       const userStore = useUserStore();
       if (userStore.selectedConditionFilters.length === 0) return true;
       return userStore.selectedConditionFilters.includes(listing.condition);
     },
 
-    [FILTERED_LISTINGS](state) {
+    [FILTERED_LISTINGS](state): Listing[] {
       return state.listings
         .filter((listing) => this.INCLUDE_LISTING_BY_MINIFIGS(listing))
         .filter((listing) => this.INCLUDE_LISTING_BY_CONDITION(listing));
