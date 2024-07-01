@@ -24,46 +24,28 @@
   </header>
 </template>
 
-<script>
+<script lang="ts" setup>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import SubNav from "@/components/Navigation/SubNav.vue";
-import { mapActions, mapState } from "pinia";
 import { useUserStore } from "@/stores/user";
+import { ref, computed } from "vue";
 
-export default {
-  name: "MainNav",
-  components: {
-    ActionButton,
-    ProfileImage,
-    SubNav
-  },
-  data() {
-    return {
-      menuItems: [
-        { text: "Sets", url: "/sets/listings" },
-        { text: "Minifigures", url: "/" },
-        { text: "Deals", url: "/" },
-        { text: "News", url: "/articles" },
-        { text: "Inventory", url: "/" },
-        { text: "About Us", url: "/" }
-      ]
-    };
-  },
-  computed: {
-    // Creates this.userStore that can be accessed
-    ...mapState(useUserStore, ["isLoggedIn"]),
+const menuItems = ref([
+  { text: "Sets", url: "/sets/listings" },
+  { text: "Minifigures", url: "/" },
+  { text: "Deals", url: "/" },
+  { text: "News", url: "/articles" },
+  { text: "Inventory", url: "/" },
+  { text: "About Us", url: "/" }
+]);
 
-    // SETS OFFSET OF HERO DEPENDING ON LOGIN STATUS
-    headerHeightClass() {
-      return {
-        "h-16": !this.isLoggedIn,
-        "h-32": this.isLoggedIn
-      };
-    }
-  },
-  methods: {
-    ...mapActions(useUserStore, ["loginUser"])
-  }
-};
+const userStore = useUserStore();
+const loginUser = userStore.loginUser;
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+// SETS OFFSET OF HERO DEPENDING ON LOGIN STATUS
+const headerHeightClass = computed(() => ({
+  "h-16": !isLoggedIn.value,
+  "h-32": isLoggedIn.value
+}));
 </script>
