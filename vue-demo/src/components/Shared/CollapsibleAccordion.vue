@@ -14,16 +14,13 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from "vue";
 
 defineProps({ header: { type: String, required: true } });
-
 const isOpen = ref(false);
-
 const open = () => {
   isOpen.value = !isOpen.value;
 };
-
 const caretIcon = computed(() => (isOpen.value ? "magnifying-glass" : "angle-down"));
 </script>

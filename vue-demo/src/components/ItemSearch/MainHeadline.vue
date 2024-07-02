@@ -9,39 +9,28 @@
   </section>
 </template>
 
-<script>
+<script lang="ts" setup>
 import nextElementInList from "@/utils/nextElementInList.ts";
+import { onMounted, onBeforeUnmount, ref, computed } from "vue";
 
-export default {
-  name: "MainHero",
-  data() {
-    return {
-      keyword: "Build",
-      interval: null
-    };
-  },
-  computed: {
-    actionClasses() {
-      return {
-        //Activate keyword class
-        [this.keyword.toLowerCase()]: true
-      };
-    }
-  },
-  created() {
-    this.changeHeroTitle();
-  },
-  beforeUnmount() {
-    clearInterval(this.interval);
-  },
-  methods: {
-    changeHeroTitle() {
-      this.interval = setInterval(() => {
-        this.keyword = nextElementInList(["Build", "Find", "Sell", "Buy"], this.keyword);
-      }, 3000);
-    }
-  }
+const keyword = ref("Build");
+const interval = ref<ReturnType<typeof setInterval>>();
+
+const actionClasses = computed(() => {
+  return {
+    //Activate keyword class
+    [keyword.value.toLowerCase()]: true
+  };
+});
+
+const changeHeroTitle = () => {
+  interval.value = setInterval(() => {
+    keyword.value = nextElementInList(["Build", "Find", "Sell", "Buy"], keyword.value);
+  }, 3000);
 };
+
+onMounted(changeHeroTitle);
+onBeforeUnmount(() => clearInterval(interval.value));
 </script>
 
 <style scoped>
