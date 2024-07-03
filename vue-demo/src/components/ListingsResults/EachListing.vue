@@ -36,11 +36,15 @@
   </li>
 </template>
 
-<script setup>
-import { computed } from "vue";
+<script lang="ts" setup>
+import { type PropType, computed } from "vue";
+import type { Listing } from "@/api/types";
 
 const props = defineProps({
-  listingObject: { type: Object, required: true }
+  listingObject: {
+    type: Object as PropType<Listing>,
+    required: true
+  }
 });
 
 const listingPageLink = computed(() => "/sets/listings/" + props.listingObject.id);

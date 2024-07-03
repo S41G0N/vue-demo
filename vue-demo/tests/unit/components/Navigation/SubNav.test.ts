@@ -2,10 +2,13 @@ import { render, screen } from "@testing-library/vue";
 import SubNav from "@/components/Navigation/SubNav.vue";
 import { createTestingPinia } from "@pinia/testing";
 import { useListingsStore } from "@/stores/listings";
+import type { Mock } from "vitest";
 
 import { useRoute } from "vue-router";
 
 vi.mock("vue-router");
+
+const useRouteMock = useRoute as Mock;
 
 describe("SubNav test", () => {
   const pinia = createTestingPinia();
@@ -15,9 +18,7 @@ describe("SubNav test", () => {
     render(SubNav, {
       global: {
         plugins: [pinia],
-        stubs: {
-          FontAwesomeIcon: true
-        }
+        stubs: { FontAwesomeIcon: true }
       }
     });
     return { listingsStore };
@@ -25,12 +26,11 @@ describe("SubNav test", () => {
 
   describe("When user on sets listings page", () => {
     it("displays listings count", async () => {
-      useRoute.mockReturnValue({ name: "Listings" });
+      useRouteMock.mockReturnValue({ name: "Listings" });
       const { listingsStore } = renderSubnav();
-
       const numberOfListings = 16;
+      // @ts-expect-error: read-only
       listingsStore.FILTERED_LISTINGS = Array(numberOfListings).fill({});
-
       const listingsCount = await screen.findByText(numberOfListings);
       expect(listingsCount).toBeInTheDocument();
     });
@@ -38,10 +38,10 @@ describe("SubNav test", () => {
 
   describe("When user NOT on listings page", () => {
     it("does NOT display listings count", () => {
-      useRoute.mockReturnValue({ name: "Home" });
+      useRouteMock.mockReturnValue({ name: "Home" });
       const { listingsStore } = renderSubnav();
       const numberOfListings = 16;
-
+      // @ts-expect-error: read-only
       listingsStore.FILTERED_LISTINGS = Array(numberOfListings).fill({});
       const listingsCount = screen.queryByText(numberOfListings);
       expect(listingsCount).not.toBeInTheDocument();

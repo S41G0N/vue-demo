@@ -3,14 +3,16 @@ import userEvent from "@testing-library/user-event";
 import ItemSearchForm from "@/components/ItemSearch/ItemSearchForm.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { useRouter } from "vue-router";
+import type { Mock } from "vitest";
 
 vi.mock("vue-router");
+const useMockRouter = useRouter as Mock;
 
 describe("ItemSearchForm", () => {
   describe("when user submits form", () => {
     it("directs user to listings page with query parameters", async () => {
       const push = vi.fn();
-      useRouter.mockReturnValue({ push });
+      useMockRouter.mockReturnValue({ push });
 
       render(ItemSearchForm, {
         global: {

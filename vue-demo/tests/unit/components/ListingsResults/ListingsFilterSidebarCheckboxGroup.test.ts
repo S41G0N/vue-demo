@@ -3,20 +3,32 @@ import userEvent from "@testing-library/user-event";
 import { createTestingPinia } from "@pinia/testing";
 import { describe, expect } from "vitest";
 import { useRouter } from "vue-router";
+import type { Mock } from "vitest";
 
 import ListingsFilterSidebarCheckboxGroup from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebarCheckboxGroup.vue";
 
 vi.mock("vue-router");
 
+const useMockRouter = useRouter as Mock;
+
 describe("ListingsFilterSidebarCheckboxGroup", () => {
-  const mockProps = (props = {}) => ({
+  interface ListingsFilterSidebarCheckboxGroupProps {
+    header: string;
+    availableFilters: Set<string>;
+    action: Mock;
+  }
+  const mockProps = (
+    props: Partial<ListingsFilterSidebarCheckboxGroupProps> = {}
+  ): ListingsFilterSidebarCheckboxGroupProps => ({
     header: "Test header",
-    availableFilters: new Set("A", "B"),
+    availableFilters: new Set("A"),
     action: vi.fn(),
     ...props
   });
 
-  const renderListingsFilterSidebarCheckboxGroup = (customProps = {}) => {
+  const renderListingsFilterSidebarCheckboxGroup = (
+    customProps: ListingsFilterSidebarCheckboxGroupProps
+  ) => {
     const pinia = createTestingPinia();
 
     render(ListingsFilterSidebarCheckboxGroup, {
@@ -54,7 +66,7 @@ describe("ListingsFilterSidebarCheckboxGroup", () => {
       action
     });
 
-    useRouter.mockReturnValue({ push: vi.fn() });
+    useMockRouter.mockReturnValue({ push: vi.fn() });
     renderListingsFilterSidebarCheckboxGroup(props);
 
     const button = screen.getByRole("button", { name: /test/i });
@@ -75,7 +87,7 @@ describe("ListingsFilterSidebarCheckboxGroup", () => {
       action
     });
 
-    useRouter.mockReturnValue({ push });
+    useMockRouter.mockReturnValue({ push });
     renderListingsFilterSidebarCheckboxGroup(props);
 
     const button = screen.getByRole("button", { name: /test/i });

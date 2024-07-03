@@ -33,17 +33,8 @@
   </main>
 </template>
 
-<script>
+<script lang="ts" setup>
 import MainHeadline from "@/components/ItemSearch/MainHeadline.vue";
 import ItemSearchForm from "@/components/ItemSearch/ItemSearchForm.vue";
 import SpotLight from "@/components/ItemSearch/SpotLight.vue";
-
-export default {
-  name: "MainHero",
-  components: {
-    MainHeadline,
-    ItemSearchForm,
-    SpotLight
-  }
-};
 </script>

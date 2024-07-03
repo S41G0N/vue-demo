@@ -4,7 +4,7 @@ import axios from "axios";
 import { useUserStore } from "@/stores/user";
 import { describe } from "vitest";
 import type { Mock } from "vitest";
-import type { Listing } from "@/api/types";
+import { createMockListing } from "../utils/createMockListing";
 
 vi.mock("axios");
 
@@ -36,20 +36,6 @@ describe("actions", () => {
 });
 
 describe("getters", () => {
-  const createMockListing = (listing: Partial<Listing> = {}): Listing => ({
-    id: 1,
-    title: "Test Title",
-    seller: "Test Seller",
-    condition: "Used",
-    minifigCount: "4",
-    locations: ["Location"],
-    minifiguresIncluded: ["Test Minifigure"],
-    randomText: ["Test Random Text"],
-    description: ["Test Description"],
-    dateAdded: "2020-03-20",
-    ...listing
-  });
-
   beforeEach(() => {
     setActivePinia(createPinia());
   });

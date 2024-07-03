@@ -31,7 +31,7 @@
   </main>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import EachListing from "@/components/ListingsResults/EachListing.vue";
 import { useListingsStore } from "@/stores/listings.ts";
 import { computed, onMounted } from "vue";
@@ -45,7 +45,7 @@ const route = useRoute();
 
 const FILTERED_LISTINGS = computed(() => listingsStore.FILTERED_LISTINGS);
 const listingsPerPage = 10;
-const currentPage = computed(() => Number.parseInt(route.query.page) || 1);
+const currentPage = computed(() => Number.parseInt(route.query.page as string) || 1);
 const maxPage = computed(() => Math.ceil(FILTERED_LISTINGS.value.length / listingsPerPage));
 
 const { previousPage, nextPage } = getPreviousOrNextPage(currentPage, maxPage);

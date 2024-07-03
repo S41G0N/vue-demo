@@ -10,7 +10,7 @@
     </div>
   </div>
 </template>
-<script setup>
+<script lang="ts" setup>
 import { useListingsStore } from "@/stores/listings";
 import { useRoute } from "vue-router";
 import { computed } from "vue";

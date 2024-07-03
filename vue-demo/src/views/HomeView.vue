@@ -2,12 +2,6 @@
   <main-hero />
 </template>
 
-<script>
+<script lang="ts" setup>
 import MainHero from "@/components/ItemSearch/MainHero.vue";
-export default {
-  name: "HomeView",
-  components: {
-    MainHero
-  }
-};
 </script>
