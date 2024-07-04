@@ -6,7 +6,7 @@ import { beforeEach } from "vitest";
 vi.mock("axios");
 const axiosGetMock = axios.get as Mock;
 
-describe("Fetch listings", () => {
+describe("fetchListings", () => {
   beforeEach(() => {
     axiosGetMock.mockResolvedValue({
       data: [

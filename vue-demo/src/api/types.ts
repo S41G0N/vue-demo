@@ -10,3 +10,7 @@ export interface Listing {
   description: string[];
   dateAdded: string;
 }
+
+export interface Location {
+  locations: string[];
+}
