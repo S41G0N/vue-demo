@@ -21,13 +21,17 @@ describe("state", () => {
     const store = useUserStore();
     expect(store.selectedConditionFilters).toEqual([]);
   });
+  it("stores user location selected filters", () => {
+    const store = useUserStore();
+    expect(store.selectedLocationFilters).toEqual([]);
+  });
 });
 
 describe("actions", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
-  it("tries to login user by updating login status", () => {
+  it("loginUser()", () => {
     const store = useUserStore();
     store.loginUser();
     expect(store.isLoggedIn).toBe(true);
@@ -46,9 +50,16 @@ describe("actions", () => {
       const store = useUserStore();
 
       store.ADD_SELECTED_CONDITION(["New", "MISB"]);
-      console.log(store.selectedConditionFilters);
 
       expect(store.selectedConditionFilters).toEqual(["New", "MISB"]);
+    });
+  });
+
+  describe("ADD_SELECTED_LOCATION", () => {
+    it("updates current filters based on selected locations", () => {
+      const store = useUserStore();
+      store.ADD_SELECTED_LOCATION(["Location1, Location2"]);
+      expect(store.selectedLocationFilters).toEqual(["Location1, Location2"]);
     });
   });
 });

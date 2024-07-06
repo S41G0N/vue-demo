@@ -2,7 +2,7 @@ import fetchListings from "@/api/fetchListings";
 import { defineStore } from "pinia";
 import { useUserStore } from "@/stores/user";
 
-import type { Listing } from "@/api/types";
+import type { Listing, Location } from "@/api/types";
 
 export const FETCH_LISTINGS = "FETCH_LISTINGS";
 export const MINIFIG_COUNT = "MINIFIG_COUNT";
@@ -11,6 +11,7 @@ export const FILTERED_LISTINGS = "FILTERED_LISTINGS";
 
 export const INCLUDE_LISTING_BY_CONDITION = "INCLUDE_LISTING_BY_CONDITION";
 export const INCLUDE_LISTING_BY_MINIFIGS = "INCLUDE_LISTING_BY_MINIFIGS";
+export const INCLUDE_LISTING_BY_LOCATION = "INCLUDE_LISTING_BY_LOCATION";
 
 export interface ListingState {
   listings: Listing[];
@@ -50,6 +51,12 @@ export const useListingsStore = defineStore("listings", {
       const userStore = useUserStore();
       if (userStore.selectedConditionFilters.length === 0) return true;
       return userStore.selectedConditionFilters.includes(listing.condition);
+    },
+
+    [INCLUDE_LISTING_BY_LOCATION]: () => (listing: Location) => {
+      const userStore = useUserStore();
+      if (userStore.selectedLocationFilters.length === 0) return true;
+      return userStore.selectedLocationFilters.includes(listing.locations[0]);
     },
 
     [FILTERED_LISTINGS](state): Listing[] {

@@ -5,6 +5,7 @@ import { useUserStore } from "@/stores/user";
 import { describe } from "vitest";
 import type { Mock } from "vitest";
 import { createMockListing } from "../utils/createMockListing";
+import { createMockLocation } from "../utils/createMockLocation";
 
 vi.mock("axios");
 
@@ -116,17 +117,28 @@ describe("getters", () => {
     });
   });
 
-  describe("INCLUDE_LISTING_BY_CONDITION", () => {
-    it("Checks if getters return the correct result", () => {
-      const store = useListingsStore();
-      store.listings = [
-        createMockListing({ minifigCount: "1" }),
-        createMockListing({ minifigCount: "1" }),
-        createMockListing({ minifigCount: "1" }),
-        createMockListing({ minifigCount: "2" })
-      ];
-      const result = store.MINIFIG_COUNT;
-      expect(result).toEqual(new Set(["1", "2"]));
+  describe("INCLUDE_LISTING_BY_LOCATIONS", () => {
+    describe("when user has not selected any location filter", () => {
+      it("returns true", () => {
+        const userStore = useUserStore();
+        userStore.selectedLocationFilters = [];
+        const listingsStore = useListingsStore();
+        const mock_listing = createMockLocation({ locations: ["Location1", "Location2"] });
+        expect(listingsStore.INCLUDE_LISTING_BY_LOCATION(mock_listing)).toEqual(true);
+      });
+    });
+
+    describe("when user has selected a location filter", () => {
+      it("returns matching listings", () => {
+        const userStore = useUserStore();
+        userStore.selectedLocationFilters = ["Location1"];
+        const listingsStore = useListingsStore();
+        let mock_listing = createMockLocation({ locations: ["Location1"] });
+        expect(listingsStore.INCLUDE_LISTING_BY_LOCATION(mock_listing)).toEqual(true);
+
+        mock_listing = createMockLocation({ locations: ["Location2", "Location3"] });
+        expect(listingsStore.INCLUDE_LISTING_BY_LOCATION(mock_listing)).toEqual(false);
+      });
     });
   });
 });

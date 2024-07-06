@@ -57,11 +57,11 @@ describe("getters", () => {
     it("extracts unique locations from a collection of locations", async () => {
       const store = useLocationsStore();
       store.locations = [
-        createMockLocation({ locations: ["Munich"] }),
-        createMockLocation({ locations: ["Lisbon"] })
+        createMockLocation({ locations: ["Munich", "London", "Berlin"] }),
+        createMockLocation({ locations: ["Lisbon", "Berlin"] })
       ];
 
-      expect(store.UNIQUE_LOCATIONS).toEqual([["Munich"], ["Lisbon"]]);
+      expect(store.UNIQUE_LOCATIONS).toEqual(["Munich", "London", "Berlin", "Lisbon"]);
     });
   });
 });

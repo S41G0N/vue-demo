@@ -12,7 +12,7 @@ export const useLocationsStore = defineStore("locations", () => {
   };
 
   const UNIQUE_LOCATIONS = computed(() =>
-    locations.value.map((each_location_object) => each_location_object.locations)
+    Array.from(new Set(locations.value.flatMap((locationObj) => locationObj.locations)))
   );
 
   return { locations, FETCH_LOCATIONS, UNIQUE_LOCATIONS };
