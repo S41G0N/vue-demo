@@ -2,7 +2,7 @@ import { useUserStore } from "@/stores/user";
 import { createPinia, setActivePinia } from "pinia";
 import { expect } from "vitest";
 
-describe("Check default login status", () => {
+describe("state", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -23,7 +23,7 @@ describe("Check default login status", () => {
   });
 });
 
-describe("Login user", () => {
+describe("actions", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });

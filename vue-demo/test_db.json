@@ -2,23 +2,23 @@
     "location": [
         {
             "id": 1,
-            "locations": "Berlin"
+            "locations": [ "Berlin" ]
         },
         {
             "id": 2,
-            "locations": "Lisbon"
+            "locations": [ "Lisbon" ]
         },
         {
             "id": 3,
-            "locations": "Munich"
+            "locations": [ "Munich" ]
         },
         {
             "id": 4,
-            "locations": "Paris"
+            "locations": [ "Paris" ]
         },
         {
             "id": 5,
-            "locations": "London"
+            "locations": [ "London" ]
         }
     ],
     "sets": [

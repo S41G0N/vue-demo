@@ -12,5 +12,6 @@ export interface Listing {
 }
 
 export interface Location {
+  id: number;
   locations: string[];
 }
