@@ -62,7 +62,8 @@ export const useListingsStore = defineStore("listings", {
     [FILTERED_LISTINGS](state): Listing[] {
       return state.listings
         .filter((listing) => this.INCLUDE_LISTING_BY_MINIFIGS(listing))
-        .filter((listing) => this.INCLUDE_LISTING_BY_CONDITION(listing));
+        .filter((listing) => this.INCLUDE_LISTING_BY_CONDITION(listing))
+        .filter((listing) => this.INCLUDE_LISTING_BY_LOCATION(listing));
     }
   }
 });

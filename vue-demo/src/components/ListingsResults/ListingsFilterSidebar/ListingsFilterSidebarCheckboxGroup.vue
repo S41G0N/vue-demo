@@ -31,7 +31,7 @@ const props = defineProps({
     required: true
   },
   availableFilters: {
-    type: Set<string>,
+    type: [Set<string>, Array<string>],
     required: true
   },
   action: {

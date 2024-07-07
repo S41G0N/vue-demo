@@ -33,13 +33,17 @@
 
 <script lang="ts" setup>
 import EachListing from "@/components/ListingsResults/EachListing.vue";
-import { useListingsStore } from "@/stores/listings.ts";
+import { useListingsStore } from "@/stores/listings";
+import { useLocationsStore } from "@/stores/locations";
 import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import getPreviousOrNextPage from "@/composables/getPreviousOrNextPage.ts";
+import getPreviousOrNextPage from "@/composables/getPreviousOrNextPage";
 
 const listingsStore = useListingsStore();
 onMounted(listingsStore.FETCH_LISTINGS);
+
+const locationsStore = useLocationsStore();
+onMounted(locationsStore.FETCH_LOCATIONS);
 
 const route = useRoute();
 

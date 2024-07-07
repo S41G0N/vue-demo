@@ -20,6 +20,12 @@
         :action="userStore.ADD_SELECTED_CONDITION"
       ></listings-filter-sidebar-checkbox-group>
 
+      <listings-filter-sidebar-checkbox-group
+        header="Location"
+        :available-filters="UNIQUE_LOCATION"
+        :action="userStore.ADD_SELECTED_LOCATION"
+      ></listings-filter-sidebar-checkbox-group>
+
       <collapsible-accordion header="Themes">
         <div class="mt-5">
           <fieldset>
@@ -55,11 +61,18 @@ import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 import ListingsFilterSidebarCheckboxGroup from "@/components/ListingsResults/ListingsFilterSidebar/ListingsFilterSidebarCheckboxGroup.vue";
 import { useListingsStore } from "@/stores/listings";
 import { useUserStore } from "@/stores/user";
+import { useLocationsStore } from "@/stores/locations";
+
 import { computed } from "vue";
 
 const listingsStore = useListingsStore();
+const locationStore = useLocationsStore();
+
 const MINIFIG_COUNT = computed(() => listingsStore.MINIFIG_COUNT);
 const UNIQUE_CONDITION = computed(() => listingsStore.UNIQUE_CONDITION);
+const UNIQUE_LOCATION = computed(() => locationStore.UNIQUE_LOCATIONS);
+console.log("UNIQUE_LOCATION");
+console.log(UNIQUE_LOCATION);
 
 const userStore = useUserStore();
 </script>

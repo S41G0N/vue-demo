@@ -3,6 +3,7 @@ import ItemListings from "@/components/ListingsResults/ItemListings.vue";
 import { RouterLinkStub } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
 import { useListingsStore } from "@/stores/listings";
+import { useLocationsStore } from "@/stores/locations";
 import { useRoute } from "vue-router";
 import type { Mock } from "vitest";
 
@@ -14,6 +15,7 @@ describe("ItemListings", () => {
   const renderWithPrompts = () => {
     const pinia = createTestingPinia();
     const listingsStore = useListingsStore();
+    const locationsStore = useLocationsStore();
     // @ts-expect-error: read-only
     listingsStore.FILTERED_LISTINGS = Array(15).fill({ locations: ["Hello", "World"] });
 
@@ -25,13 +27,19 @@ describe("ItemListings", () => {
         }
       }
     });
-    return { listingsStore };
+    return { listingsStore, locationsStore };
   };
 
   it("fetches listings", () => {
     useMockRoute.mockReturnValue({ query: {} });
     const { listingsStore } = renderWithPrompts();
     expect(listingsStore.FETCH_LISTINGS).toHaveBeenCalledWith();
+  });
+
+  it("fetches degrees", () => {
+    useMockRoute.mockReturnValue({ query: {} });
+    const { locationsStore } = renderWithPrompts();
+    expect(locationsStore.FETCH_LOCATIONS).toHaveBeenCalled();
   });
 
   it("create only 10 listings on the first page", async () => {
