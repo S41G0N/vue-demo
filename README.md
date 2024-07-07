@@ -2,10 +2,10 @@
 
 This is a personal project aimed at learning the basics of Vue and Tailwind CSS
 
-<video width="640" height="360" controls>
-  <source src="img/demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+
+https://github.com/S41G0N/vue-demo/assets/159702116/87dcc83e-d28e-48aa-bfc4-ee985af0bc19
+
+
 
 ## Project Setup
 
