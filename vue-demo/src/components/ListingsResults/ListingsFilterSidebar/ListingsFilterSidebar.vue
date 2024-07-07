@@ -4,27 +4,34 @@
       <div class="flex flex-row justify-between">
         <h3 class="my-4 text-base font-semibold">What are you looking for?</h3>
         <div class="flex items-center text-sm">
-          <action-button text="Clear filters" type="secondary" />
+          <action-button
+            text="Clear filters"
+            type="secondary"
+            @click="userStore.CLEAR_USER_SELECTED_FILTERS"
+          />
         </div>
       </div>
 
-      <listings-filter-sidebar-checkbox-group
-        header="Minifigures"
-        :available-filters="MINIFIG_COUNT"
-        :action="userStore.ADD_SELECTED_MINIFIGURES"
-      ></listings-filter-sidebar-checkbox-group>
+      <collapsible-accordion header="Minifigures">
+        <listings-filter-sidebar-checkbox-group
+          :available-filters="MINIFIG_COUNT"
+          :action="userStore.ADD_SELECTED_MINIFIGURES"
+        ></listings-filter-sidebar-checkbox-group>
+      </collapsible-accordion>
 
-      <listings-filter-sidebar-checkbox-group
-        header="Condition"
-        :available-filters="UNIQUE_CONDITION"
-        :action="userStore.ADD_SELECTED_CONDITION"
-      ></listings-filter-sidebar-checkbox-group>
+      <collapsible-accordion header="Condition">
+        <listings-filter-sidebar-checkbox-group
+          :available-filters="UNIQUE_CONDITION"
+          :action="userStore.ADD_SELECTED_CONDITION"
+        ></listings-filter-sidebar-checkbox-group>
+      </collapsible-accordion>
 
-      <listings-filter-sidebar-checkbox-group
-        header="Location"
-        :available-filters="UNIQUE_LOCATION"
-        :action="userStore.ADD_SELECTED_LOCATION"
-      ></listings-filter-sidebar-checkbox-group>
+      <collapsible-accordion header="Location">
+        <listings-filter-sidebar-checkbox-group
+          :available-filters="UNIQUE_LOCATION"
+          :action="userStore.ADD_SELECTED_LOCATION"
+        ></listings-filter-sidebar-checkbox-group>
+      </collapsible-accordion>
 
       <collapsible-accordion header="Themes">
         <div class="mt-5">
@@ -71,8 +78,6 @@ const locationStore = useLocationsStore();
 const MINIFIG_COUNT = computed(() => listingsStore.MINIFIG_COUNT);
 const UNIQUE_CONDITION = computed(() => listingsStore.UNIQUE_CONDITION);
 const UNIQUE_LOCATION = computed(() => locationStore.UNIQUE_LOCATIONS);
-console.log("UNIQUE_LOCATION");
-console.log(UNIQUE_LOCATION);
 
 const userStore = useUserStore();
 </script>

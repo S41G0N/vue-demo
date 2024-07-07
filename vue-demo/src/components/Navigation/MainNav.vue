@@ -41,7 +41,7 @@ const menuItems = ref([
 ]);
 
 const userStore = useUserStore();
-const loginUser = userStore.loginUser;
+const loginUser = userStore.LOGIN_USER;
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 // SETS OFFSET OF HERO DEPENDING ON LOGIN STATUS
 const headerHeightClass = computed(() => ({

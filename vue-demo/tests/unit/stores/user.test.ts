@@ -1,4 +1,4 @@
-import { useUserStore } from "@/stores/user";
+import { ADD_SELECTED_CONDITION, useUserStore } from "@/stores/user";
 import { createPinia, setActivePinia } from "pinia";
 import { expect } from "vitest";
 
@@ -31,9 +31,10 @@ describe("actions", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
+
   it("loginUser()", () => {
     const store = useUserStore();
-    store.loginUser();
+    store.LOGIN_USER();
     expect(store.isLoggedIn).toBe(true);
   });
 
@@ -58,8 +59,22 @@ describe("actions", () => {
   describe("ADD_SELECTED_LOCATION", () => {
     it("updates current filters based on selected locations", () => {
       const store = useUserStore();
-      store.ADD_SELECTED_LOCATION(["Location1, Location2"]);
-      expect(store.selectedLocationFilters).toEqual(["Location1, Location2"]);
+      store.ADD_SELECTED_LOCATION(["Location1", "Location2"]);
+      expect(store.selectedLocationFilters).toEqual(["Location1", "Location2"]);
+    });
+  });
+
+  describe("CLEAR_USER_SELECTED_FILTERS", () => {
+    it("remove all currently selected filters", () => {
+      const store = useUserStore();
+      store.ADD_SELECTED_LOCATION(["Paris", "Lisbon"]);
+      store.ADD_SELECTED_CONDITION(["MISB", "New"]);
+      store.ADD_SELECTED_MINIFIGURES(["1", "2"]);
+      store.CLEAR_USER_SELECTED_FILTERS();
+
+      expect(store.selectedLocationFilters).toEqual([]);
+      expect(store.selectedConditionFilters).toEqual([]);
+      expect(store.selectedMinifigureFilters).toEqual([]);
     });
   });
 });

@@ -61,7 +61,7 @@ describe("getters", () => {
         createMockLocation({ locations: ["Lisbon", "Berlin"] })
       ];
 
-      expect(store.UNIQUE_LOCATIONS).toEqual(["Munich", "London", "Berlin", "Lisbon"]);
+      expect(store.UNIQUE_LOCATIONS).toEqual(new Set(["Munich", "London", "Berlin", "Lisbon"]));
     });
   });
 });
