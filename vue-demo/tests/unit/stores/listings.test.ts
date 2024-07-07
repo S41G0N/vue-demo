@@ -141,4 +141,34 @@ describe("getters", () => {
       });
     });
   });
+
+  describe("INCLUDE_LISTING_BY_DESCRIPTION_SEARCH_TERM", () => {
+    describe("when user has not typed any search term", () => {
+      it("returns true", () => {
+        const userStore = useUserStore();
+        userStore.descriptionSearchTerm = "";
+        const listingsStore = useListingsStore();
+        const mock_listing = createMockListing({ title: "Test Search Term Is Here" });
+        expect(listingsStore.INCLUDE_LISTING_BY_DESCRIPTION_SEARCH_TERM(mock_listing)).toBe(true);
+      });
+    });
+
+    describe("when user has typed a search term", () => {
+      it("returns matching listings", () => {
+        const userStore = useUserStore();
+        userStore.descriptionSearchTerm = "Test Search Term";
+        const listingsStore = useListingsStore();
+        const mock_listing = createMockListing({ title: "Test Search Term Is Here" });
+        expect(listingsStore.INCLUDE_LISTING_BY_DESCRIPTION_SEARCH_TERM(mock_listing)).toBe(true);
+      });
+
+      it("handles incosistent characters (capital and lower letters)", () => {
+        const userStore = useUserStore();
+        userStore.descriptionSearchTerm = "test search term";
+        const listingsStore = useListingsStore();
+        const mock_listing = createMockListing({ title: "Test Search Term Is Here" });
+        expect(listingsStore.INCLUDE_LISTING_BY_DESCRIPTION_SEARCH_TERM(mock_listing)).toBe(true);
+      });
+    });
+  });
 });

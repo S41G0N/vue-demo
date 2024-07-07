@@ -1,10 +1,11 @@
 # vue-demo
 
-This is a personal project in which I'm trying to learn the basics of Vue and Tailwind
+This is a personal project aimed at learning the basics of Vue and Tailwind CSS
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+<video width="640" height="360" controls>
+  <source src="img/demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Project Setup
 
@@ -30,14 +31,9 @@ npm run dev && npm run backend
 npm run test:unit
 ```
 
-### Compile and Minify for Production
+### Load the webpage in your browser
 
 ```sh
-npm run build
+http://localhost:5173
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```

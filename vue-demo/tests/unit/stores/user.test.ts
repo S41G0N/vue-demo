@@ -1,4 +1,4 @@
-import { ADD_SELECTED_CONDITION, useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/user";
 import { createPinia, setActivePinia } from "pinia";
 import { expect } from "vitest";
 
@@ -21,9 +21,15 @@ describe("state", () => {
     const store = useUserStore();
     expect(store.selectedConditionFilters).toEqual([]);
   });
+
   it("stores user location selected filters", () => {
     const store = useUserStore();
     expect(store.selectedLocationFilters).toEqual([]);
+  });
+
+  it("stores stores description search term", () => {
+    const store = useUserStore();
+    expect(store.descriptionSearchTerm).toEqual("");
   });
 });
 
@@ -75,6 +81,15 @@ describe("actions", () => {
       expect(store.selectedLocationFilters).toEqual([]);
       expect(store.selectedConditionFilters).toEqual([]);
       expect(store.selectedMinifigureFilters).toEqual([]);
+      expect(store.descriptionSearchTerm).toBe("");
+    });
+  });
+
+  describe("UPDATE_DESCRIPTION_SEARCH_TERM", () => {
+    it("updates the search term based on user prompt", () => {
+      const store = useUserStore();
+      store.UPDATE_DESCRIPTION_SEARCH_TERM("Test Search Term");
+      expect(store.descriptionSearchTerm).toEqual("Test Search Term");
     });
   });
 });

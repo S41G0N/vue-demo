@@ -5,12 +5,14 @@ export const ADD_SELECTED_MINIFIGURES = "ADD_SELECTED_MINIFIGURES";
 export const ADD_SELECTED_CONDITION = "ADD_SELECTED_CONDITION";
 export const ADD_SELECTED_LOCATION = "ADD_SELECTED_LOCATION";
 export const CLEAR_USER_SELECTED_FILTERS = "CLEAR_USER_SELECTED_FILTERS";
+export const UPDATE_DESCRIPTION_SEARCH_TERM = "UPDATE_DESCRIPTION_SEARCH_TERM";
 
 export const useUserStore = defineStore("user", () => {
   const isLoggedIn = ref(false);
   const selectedMinifigureFilters = ref<string[]>([]);
   const selectedConditionFilters = ref<string[]>([]);
   const selectedLocationFilters = ref<string[]>([]);
+  const descriptionSearchTerm = ref<string>("");
 
   const LOGIN_USER = () => {
     isLoggedIn.value = true;
@@ -32,6 +34,11 @@ export const useUserStore = defineStore("user", () => {
     selectedMinifigureFilters.value = [];
     selectedConditionFilters.value = [];
     selectedLocationFilters.value = [];
+    descriptionSearchTerm.value = "";
+  };
+
+  const UPDATE_DESCRIPTION_SEARCH_TERM = (searchTerm: string) => {
+    descriptionSearchTerm.value = searchTerm;
   };
 
   return {
@@ -43,6 +50,8 @@ export const useUserStore = defineStore("user", () => {
     ADD_SELECTED_MINIFIGURES,
     ADD_SELECTED_CONDITION,
     ADD_SELECTED_LOCATION,
-    CLEAR_USER_SELECTED_FILTERS
+    CLEAR_USER_SELECTED_FILTERS,
+    descriptionSearchTerm,
+    UPDATE_DESCRIPTION_SEARCH_TERM
   };
 });
